@@ -3,6 +3,9 @@ import sys
 import numpy as np
 
 # Object name for left side
+robotName = "RobotBase"
+
+# Object name for left side
 leftMotorName = "RobotBase_leftMotor"
 leftWheelFrontName = "RobotBase_leftWheel"
 leftWheelBehindName = "RobotBase_leftWheelBehind"
@@ -33,6 +36,8 @@ print("-----------------Simulation start-----------------")
 
 
 # Initization object handles
+_, robotHandle = vrep.simxGetObjectHandle(clientID, robotName, vrep.simx_opmode_blocking)
+
 _, leftMotorHandle = vrep.simxGetObjectHandle(clientID, leftMotorName, vrep.simx_opmode_blocking)
 _, leftWheelFrontHandle = vrep.simxGetObjectHandle(clientID, leftWheelFrontName, vrep.simx_opmode_blocking)
 _, leftWheelBehindHandle = vrep.simxGetObjectHandle(clientID, leftWheelBehindName, vrep.simx_opmode_blocking)
