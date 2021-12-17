@@ -13,15 +13,15 @@ clientID = hc.clientID
 def getMotorTorque(handle):
     global clientID
     motorHandle = int(handle)
-    result, value = vrep.simxGetJointForce(clientID, motorHandle, vrep.simx_opmode_oneshot)
+    returnCode, value = vrep.simxGetJointForce(clientID, motorHandle, vrep.simx_opmode_oneshot)
     return value
 
 def getObjectVelocity(handle):
     global clientID
     objectHandle = int(handle)
-    result, linearVec, angularVec = vrep.simxGetObjectVelocity(clientID, objectHandle, vrep.simx_opmode_oneshot)
-    return result, linearVec, angularVec
-    
+    returnCode, linearVec, angularVec = vrep.simxGetObjectVelocity(clientID, objectHandle, vrep.simx_opmode_oneshot)
+    return returnCode, linearVec, angularVec
+
 
 
 
@@ -29,6 +29,7 @@ def getObjectVelocity(handle):
 if __name__ == '__main__':
     while True:
         result, linear, angular = getObjectVelocity(hc.robotHandle)
+        print(f"result is {result}")
         print(linear)
         print(angular)
         time.sleep(1)

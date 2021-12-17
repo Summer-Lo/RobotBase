@@ -14,7 +14,7 @@ def motorVeclocityPositive(handle, veclocity):
     global clientID
     motorHandle = int(handle)
     value = float(veclocity)
-    print("Velocity is: ",value)
+    #print("Velocity is: ",value)
     
     if(int(motorHandle) == int(hc.leftMotorHandle)):
         vrep.simxSetJointTargetVelocity(clientID, motorHandle,float(hc.leftMotorVec+value), vrep.simx_opmode_oneshot)

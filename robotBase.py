@@ -23,6 +23,7 @@ import vrep
 import client_config as hc
 import velocity
 import info
+import sensor
 
 class robotBase:
 
@@ -210,6 +211,8 @@ def main():
             screen.blit(textTitle, textRectTitle)
             screen.blit(textVec, textRectVec)
 
+            #----------------------------------------Robot Velocity (start)----------------------------------------
+
             
             # Velocity Information Title
             textInfoTopic = font.render('---------Robot Velocity---------', True, blue, white)
@@ -249,7 +252,10 @@ def main():
                 textRectInfo = textInfo.get_rect()
                 textRectInfo.center = (X-360+ (j*190) , 350+(i*100) )
                 screen.blit(textInfo, textRectInfo)
+            #----------------------------------------Robot Velocity (end)----------------------------------------
 
+
+            #----------------------------------------Motor Torque (start)----------------------------------------
             # Torque Information Title
             textInfoTopic = font.render('---------Motor Torque---------', True, blue, white)
             textRectInfoTopic = textInfoTopic.get_rect()
@@ -274,11 +280,31 @@ def main():
             #print(type(rightTorque))
             leftTorque = round(leftTorque,4)
             rightTorque = round(rightTorque,4)
-            targetinfo = [round(leftTorque,4),rightTorque]
+            targetinfo = [round(leftTorque,4),round(rightTorque,4)]
             textInfo = font.render(str(targetinfo[i])+' N m', True, black, white)
             textRectInfo = textInfo.get_rect()
             textRectInfo.center = (X-150 , 550+(i*50) )
             screen.blit(textInfo, textRectInfo)
+
+            #----------------------------------------Motor Torque (end)----------------------------------------
+
+            '''
+            returnCode, state, forceVector, torqueVector = sensor.getForceSensor(hc.leftForceSensorHandle)
+            print("----------Left Force Sensor result----------")
+            print(f"Return Code is {returnCode}")
+            print(f"Force Sensor State is {state}")
+            print(f"Force Vector is {forceVector}")
+            print(f"Torque Vector is {torqueVector}")
+
+            returnCode, state, forceVector, torqueVector = sensor.getForceSensor(hc.rightForceSensorHandle)
+            print("----------Right Force Sensor result----------")
+            print(f"Return Code is {returnCode}")
+            print(f"Force Sensor State is {state}")
+            print(f"Force Vector is {forceVector}")
+            print(f"Torque Vector is {torqueVector}")
+            '''
+            
+
 
 
             

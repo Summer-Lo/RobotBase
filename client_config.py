@@ -15,6 +15,10 @@ rightMotorName = "RobotBase_rightMotor"
 rightWheelFrontName = "RobotBase_rightWheel"
 rightWheelBehindName = "RobotBase_rightWheelBehind"
 
+# Object name for behind force sensor
+leftForceSensorName = "RobotBase_leftJointBehind"
+rightForceSensorName = "RobotBase_rightJointBehind"
+
 # Start connection between VREP and Python API
 print('Simulation started')
 
@@ -45,6 +49,9 @@ _, leftWheelBehindHandle = vrep.simxGetObjectHandle(clientID, leftWheelBehindNam
 _, rightMotorHandle = vrep.simxGetObjectHandle(clientID, rightMotorName, vrep.simx_opmode_blocking)
 _, rightWheelFrontHandle = vrep.simxGetObjectHandle(clientID, rightWheelFrontName, vrep.simx_opmode_blocking)
 _, rightWheelBehindHandle = vrep.simxGetObjectHandle(clientID, rightWheelBehindName, vrep.simx_opmode_blocking)
+
+_, leftForceSensorHandle = vrep.simxGetObjectHandle(clientID, leftForceSensorName, vrep.simx_opmode_blocking)
+_, rightForceSensorHandle = vrep.simxGetObjectHandle(clientID, rightForceSensorName, vrep.simx_opmode_blocking)
 
 # Print object handdles
 objectHandle = {"RobotBase_leftMotor":leftMotorHandle,"RobotBase_leftWheel":leftWheelFrontHandle,"RobotBase_leftWheelBehind":leftWheelBehindHandle,"RobotBase_rightMotor":rightMotorHandle,"RobotBase_rightWheel":rightWheelFrontHandle,"RobotBase_rightWheelBehind":rightWheelBehindHandle}
