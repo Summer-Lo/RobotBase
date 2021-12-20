@@ -63,3 +63,6 @@ print("Value list of Object Handle: ",val_list)
 # Value Configuration
 leftMotorVec = 0
 rightMotorVec = 0
+
+# Wheel Configuration
+wheelScale = 0.06

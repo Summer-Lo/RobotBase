@@ -137,13 +137,14 @@ def main():
     motorRightSub_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((260, 125), (60, 45)),text='(S) <',manager=manager)
     
     # Pose
-    changeDirection_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((100, 175), (150, 45)),text='Forward/Backward',manager=manager)
-    reset_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((300, 175), (150, 45)),text='Reset Velocity',manager=manager)
-    
+    changeDirection_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 175), (150, 45)),text='Forward/Backward',manager=manager)
+    reset_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((250, 175), (150, 45)),text='Reset Velocity',manager=manager)
+    reset_button= pygame_gui.elements.UIButton(relative_rect=pygame.Rect((450, 175), (150, 45)),text='Reset Robot',manager=manager)
+
     # Modify
-    massIncrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((100, 225), (150, 45)),text='Mass Increase',manager=manager)
-    massDecrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((300, 225), (150, 45)),text='Mass Decrease',manager=manager)
-    
+    massIncrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 225), (150, 45)),text='Mass Increase',manager=manager)
+    massDecrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((250, 225), (150, 45)),text='Mass Decrease',manager=manager)
+    scaleWheel_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((450, 225), (150, 45)),text='Wheel Dimension',manager=manager)
     '''
     # Joint 3 button
     joint3Add5_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((400, 175), (45, 45)),text='>>',manager=manager)
@@ -384,6 +385,10 @@ def main():
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == massDecrease_button:
                         modify.updateRobotMass(hc.robotHandle,-10)
+                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    if event.ui_element == scaleWheel_button:
+                        modify.scaleWheel()
+                
                 '''
                 # Joint 3
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
@@ -503,7 +508,8 @@ def main():
                     modify.updateRobotMass(hc.robotHandle,10)
                 elif event.key == pygame.K_DOWN:
                     modify.updateRobotMass(hc.robotHandle,-10)
-
+                elif event.key == pygame.m:
+                    modify.scaleWheel()
                 else:
                     print("Invalid input, no corresponding function for this key!")
 

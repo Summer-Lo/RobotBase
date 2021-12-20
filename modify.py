@@ -19,17 +19,21 @@ def updateRobotMass(handle, value):
         vrep.sim_scripttype_childscript,'massModify',[],[value],[],b'',vrep.simx_opmode_blocking)
     return retFloats
 
-
-
-
+def scaleWheel():
+    global clientID
+    value = input("Please input the radius of Wheels: ")
+    factor = float(value) / float(hc.wheelScale)
+    res, retInts, retFloats, retStrings, retBuffer = vrep.simxCallScriptFunction(clientID, hc.robotName,\
+        vrep.sim_scripttype_childscript,'scaleWheel',[],[factor],[],b'',vrep.simx_opmode_blocking)
+    result = float(hc.wheelScale) * float(factor)
+    hc.wheelScale = float(result)
+    print(f"The current radius of wheels are: {float(hc.wheelScale)}")
+    return result
 
 
 #testing
 if __name__ == '__main__':
     while True:
-        result = updateRobotMass(hc.robotHandle,10)
-        print(f"Result is: {result}")
-        time.sleep(5)
-        result = updateRobotMass(hc.robotHandle,-10)
-        print(f"Result is: {result}")
+        result = scaleWheel()
+
 
