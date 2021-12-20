@@ -508,7 +508,7 @@ def main():
                     modify.updateRobotMass(hc.robotHandle,10)
                 elif event.key == pygame.K_DOWN:
                     modify.updateRobotMass(hc.robotHandle,-10)
-                elif event.key == pygame.m:
+                elif event.key == pygame.K_m:
                     modify.scaleWheel()
                 else:
                     print("Invalid input, no corresponding function for this key!")
