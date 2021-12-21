@@ -22,7 +22,11 @@ def getObjectVelocity(handle):
     returnCode, linearVec, angularVec = vrep.simxGetObjectVelocity(clientID, objectHandle, vrep.simx_opmode_oneshot)
     return returnCode, linearVec, angularVec
 
-
+def readRobotMass():
+    global clientID
+    res, retInts, retFloats, retStrings, retBuffer = vrep.simxCallScriptFunction(clientID, hc.robotName,\
+        vrep.sim_scripttype_childscript,'readMass',[],[],[],b'',vrep.simx_opmode_blocking)
+    return retFloats[0]
 
 
 #testing

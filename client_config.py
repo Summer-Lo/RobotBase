@@ -7,17 +7,19 @@ robotName = "RobotBase"
 
 # Object name for left side
 leftMotorName = "RobotBase_leftMotor"
+leftJointBehindName = "RobotBase_leftJointBehind"
 leftWheelFrontName = "RobotBase_leftWheel"
 leftWheelBehindName = "RobotBase_leftWheelBehind"
 
 # Object name for right side
 rightMotorName = "RobotBase_rightMotor"
+rightJointBehindName = "RobotBase_rightJointBehind"
 rightWheelFrontName = "RobotBase_rightWheel"
 rightWheelBehindName = "RobotBase_rightWheelBehind"
 
 # Object name for behind force sensor
-leftForceSensorName = "RobotBase_leftJointBehind"
-rightForceSensorName = "RobotBase_rightJointBehind"
+#leftForceSensorName = "RobotBase_leftJointBehind"
+#rightForceSensorName = "RobotBase_rightJointBehind"
 
 # Start connection between VREP and Python API
 print('Simulation started')
@@ -43,15 +45,17 @@ print("-----------------Simulation start-----------------")
 _, robotHandle = vrep.simxGetObjectHandle(clientID, robotName, vrep.simx_opmode_blocking)
 
 _, leftMotorHandle = vrep.simxGetObjectHandle(clientID, leftMotorName, vrep.simx_opmode_blocking)
+_, leftJointBehindHandle = vrep.simxGetObjectHandle(clientID, leftJointBehindName, vrep.simx_opmode_blocking)
 _, leftWheelFrontHandle = vrep.simxGetObjectHandle(clientID, leftWheelFrontName, vrep.simx_opmode_blocking)
 _, leftWheelBehindHandle = vrep.simxGetObjectHandle(clientID, leftWheelBehindName, vrep.simx_opmode_blocking)
 
 _, rightMotorHandle = vrep.simxGetObjectHandle(clientID, rightMotorName, vrep.simx_opmode_blocking)
+_, rightJointBehindHandle = vrep.simxGetObjectHandle(clientID, rightJointBehindName, vrep.simx_opmode_blocking)
 _, rightWheelFrontHandle = vrep.simxGetObjectHandle(clientID, rightWheelFrontName, vrep.simx_opmode_blocking)
 _, rightWheelBehindHandle = vrep.simxGetObjectHandle(clientID, rightWheelBehindName, vrep.simx_opmode_blocking)
 
-_, leftForceSensorHandle = vrep.simxGetObjectHandle(clientID, leftForceSensorName, vrep.simx_opmode_blocking)
-_, rightForceSensorHandle = vrep.simxGetObjectHandle(clientID, rightForceSensorName, vrep.simx_opmode_blocking)
+wheelHandle = [int(leftWheelFrontHandle),int(rightWheelFrontHandle),int(leftWheelBehindHandle),int(rightWheelBehindHandle)]
+jointHandle = [int(leftMotorHandle),int(rightMotorHandle),int(leftJointBehindHandle),int(rightJointBehindHandle)]
 
 # Print object handdles
 objectHandle = {"RobotBase_leftMotor":leftMotorHandle,"RobotBase_leftWheel":leftWheelFrontHandle,"RobotBase_leftWheelBehind":leftWheelBehindHandle,"RobotBase_rightMotor":rightMotorHandle,"RobotBase_rightWheel":rightWheelFrontHandle,"RobotBase_rightWheelBehind":rightWheelBehindHandle}
@@ -66,3 +70,28 @@ rightMotorVec = 0
 
 # Wheel Configuration
 wheelScale = 0.06
+
+# orginal position and orientation
+# wheel = [leftWheel, rightWheel, leftWheelBehind, rightWheelBehind]
+wheelPosX = [0.065,-0.065,0.065,-0.065]
+wheelPosY = [-0.075,-0.075,0.075,0.075]
+wheelPosZ = [0.05,0.05,0.05,0.05]
+wheelAlpha = [0,0,0,0]
+wheelBeta = [90,90,90,90]
+wheelGamma = [-90,-90,-90,-90]
+
+# Joint = [leftMotor, rightMotor, leftJointBehind, rightJointBehind]
+jointPosX = [0.06,-0.06,0.06,-0.06]
+jointPosY = [-0.075,-0.075,0.075,0.075]
+jointPosZ = [0.05,0.05,0.05,0.05]
+jointAlpha = [0,0,0,0]
+jointBeta = [90,90,90,90]
+jointGamma = [-90,-90,-90,-90]
+
+# Robot
+robotPosX = 0
+robotPosY = 0
+robotPosZ = 0.05
+robotAlpha = 0
+robotBeta = 0
+robotGamma = 0

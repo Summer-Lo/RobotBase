@@ -25,6 +25,7 @@ import velocity
 import info
 import sensor
 import modify
+import reset
 
 class robotBase:
 
@@ -76,33 +77,16 @@ class robotBase:
         print("Left Wheel (Behind) Handle:",hc.rightWheelBehindHandle)
         print("===============================================")
 
-    def openRG2(self):
-        rgName = self.rgName
-        clientID = self.clientID
-        res, retInts, retFloats, retStrings, retBuffer = vrep.simxCallScriptFunction(clientID, rgName,\
-                                                        vrep.sim_scripttype_childscript,'rg2Open',[],[],[],b'',vrep.simx_opmode_blocking)
-        
-    # close rg2
-    def closeRG2(self):
-        rgName = self.rgName
-        clientID = self.clientID
-        res, retInts, retFloats, retStrings, retBuffer = vrep.simxCallScriptFunction(clientID, rgName,\
-                                                        vrep.sim_scripttype_childscript,'rg2Close',[],[],[],b'',vrep.simx_opmode_blocking)
-        
     def StopSimulation(self):
         clientID = self.clientID
         vrep.simxStopSimulation(clientID, vrep.simx_opmode_blocking)    # Stop simulation
         vrep.simxFinish(clientID)   # Finish
-    
-
-    
-
 
 # control robot by keyboard
 def main():
     # variates
     resolutionX = 640               # Camera resolution: 640*480
-    resolutionY = 680
+    resolutionY = 780
     RAD2DEG = 180 / math.pi         # transform radian to degrees
     robot = robotBase()
 
@@ -118,7 +102,7 @@ def main():
     green = (0, 255, 0)
     blue = (0, 0, 128)
     black = (0, 0, 0)
-    manager = pygame_gui.UIManager((800, 600))
+    manager = pygame_gui.UIManager((800, 700))
     # Introd
     button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((20, 25), (160, 45)),text='Adjusting velocity',manager=manager)
     Add5_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((400, 25), (60, 45)),text='+0.5',manager=manager)
@@ -138,7 +122,7 @@ def main():
     
     # Pose
     changeDirection_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 175), (150, 45)),text='Forward/Backward',manager=manager)
-    reset_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((250, 175), (150, 45)),text='Reset Velocity',manager=manager)
+    resetVec_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((250, 175), (150, 45)),text='Reset Velocity',manager=manager)
     reset_button= pygame_gui.elements.UIButton(relative_rect=pygame.Rect((450, 175), (150, 45)),text='Reset Robot',manager=manager)
 
     # Modify
@@ -185,6 +169,7 @@ def main():
         Y = 100
         jointTitle = ['Left Motor', 'Right Motor']
         infoTitle = ['Left Motor Torque: ','Right Motor Torque: ']
+        massWheelTitle = ['Robot Mass: ','Wheel Diameter: ']
         vecTitle = ["---Linear Velocity---","---Angular Velocity---"]
         vecInfoTitle = ["X: ","Y: ","Z: "]
         pygame.display.flip()
@@ -217,17 +202,49 @@ def main():
             screen.blit(textTitle, textRectTitle)
             screen.blit(textVec, textRectVec)
 
+            #----------------------------------------Robot mass (start)----------------------------------------
+            textInfoTopic = font.render('---------Robot Information---------', True, blue, white)
+            textRectInfoTopic = textInfoTopic.get_rect()
+            textRectInfoTopic.center = (310, 300 )
+            screen.blit(textInfoTopic, textRectInfoTopic)
+            X = 480
+            textInfoTitle = font.render(str(massWheelTitle[i]), True, black, white)
+            textRectInfoTitle = textInfoTitle.get_rect()
+            textRectInfoTitle.center = (X-355  , 350+(i*50) )
+            screen.blit(textInfoTitle, textRectInfoTitle)
+            
+            # Mass Information Clear
+            textInfoClear = font.render('                     ', True, black, white)
+            textRectInfoClear = textInfoClear.get_rect()
+            textRectInfoClear.center = (X-150 , 350+(i*50) )
+            screen.blit(textInfoClear, textRectInfoClear)
+            
+            # Mass Information
+            mass = info.readRobotMass()
+            rightTorque = info.getMotorTorque(hc.rightMotorHandle)
+            #print(type(leftTorque))
+            #print(type(rightTorque))
+            massWheelinfo = [round(mass,4),round(hc.wheelScale,4)]
+            if(i == 0):
+                textInfo = font.render(str(massWheelinfo[i])+' kg', True, black, white)
+            elif(i == 1):
+                textInfo = font.render(str(massWheelinfo[i])+' m', True, black, white)
+            textRectInfo = textInfo.get_rect()
+            textRectInfo.center = (X-150 , 350+(i*50) )
+            screen.blit(textInfo, textRectInfo)
+            #----------------------------------------Robot mass (end)----------------------------------------
+
+            #----------------------------------------Robot Wheel configuration (start)----------------------------------------
+            #----------------------------------------Robot Wheel configuration (end)----------------------------------------
+
+
             #----------------------------------------Robot Velocity (start)----------------------------------------
 
             
             # Velocity Information Title
-            textInfoTopic = font.render('---------Robot Velocity---------', True, blue, white)
-            textRectInfoTopic = textInfoTopic.get_rect()
-            textRectInfoTopic.center = (310, 300 )
-            screen.blit(textInfoTopic, textRectInfoTopic)
             textInfoTopic = font.render(vecTitle[i], True, blue, white)
             textRectInfoTopic = textInfoTopic.get_rect()
-            textRectInfoTopic.center = (310, 350+(i*100) )
+            textRectInfoTopic.center = (310, 450+(i*100) )
             screen.blit(textInfoTopic, textRectInfoTopic)
             X = 480
             
@@ -235,13 +252,13 @@ def main():
             for j in range(3):
                 textInfoTitle = font.render(str(vecInfoTitle[j]), True, black, white)
                 textRectInfoTitle = textInfoTitle.get_rect()
-                textRectInfoTitle.center = (X-440 + (j*190) , 400+(i*100) )
+                textRectInfoTitle.center = (X-440 + (j*190) , 500+(i*100) )
                 screen.blit(textInfoTitle, textRectInfoTitle)
 
                 # Velocity Information Clear
                 textInfoClear = font.render('                       ', True, black, white)
                 textRectInfoClear = textInfoClear.get_rect()
-                textRectInfoClear.center = (X-360+ (j*190) , 400+(i*100) )
+                textRectInfoClear.center = (X-360+ (j*190) , 500+(i*100) )
                 screen.blit(textInfoClear, textRectInfoClear)
                 
                 # Velocity Information
@@ -256,7 +273,7 @@ def main():
                 if(i==1):
                     textInfo = font.render(str(round(angular[j],4))+' rad/s', True, black, white)
                 textRectInfo = textInfo.get_rect()
-                textRectInfo.center = (X-360+ (j*190) , 400+(i*100) )
+                textRectInfo.center = (X-360+ (j*190) , 500+(i*100) )
                 screen.blit(textInfo, textRectInfo)
             #----------------------------------------Robot Velocity (end)----------------------------------------
 
@@ -265,18 +282,18 @@ def main():
             # Torque Information Title
             textInfoTopic = font.render('---------Motor Torque---------', True, blue, white)
             textRectInfoTopic = textInfoTopic.get_rect()
-            textRectInfoTopic.center = (310, 550 )
+            textRectInfoTopic.center = (310, 650 )
             screen.blit(textInfoTopic, textRectInfoTopic)
             X = 480
             textInfoTitle = font.render(str(infoTitle[i]), True, black, white)
             textRectInfoTitle = textInfoTitle.get_rect()
-            textRectInfoTitle.center = (X-355  , 600+(i*50) )
+            textRectInfoTitle.center = (X-355  , 700+(i*50) )
             screen.blit(textInfoTitle, textRectInfoTitle)
             
             # Torque Information Clear
             textInfoClear = font.render('                     ', True, black, white)
             textRectInfoClear = textInfoClear.get_rect()
-            textRectInfoClear.center = (X-150 , 600+(i*50) )
+            textRectInfoClear.center = (X-150 , 700+(i*50) )
             screen.blit(textInfoClear, textRectInfoClear)
             
             # Torque Information
@@ -289,7 +306,7 @@ def main():
             targetinfo = [round(leftTorque,4),round(rightTorque,4)]
             textInfo = font.render(str(targetinfo[i])+' N m', True, black, white)
             textRectInfo = textInfo.get_rect()
-            textRectInfo.center = (X-150 , 600+(i*50) )
+            textRectInfo.center = (X-150 , 700+(i*50) )
             screen.blit(textInfo, textRectInfo)
 
             #----------------------------------------Motor Torque (end)----------------------------------------
@@ -322,7 +339,9 @@ def main():
         for event in pygame.event.get():
             # exit the program
             if event.type == pygame.QUIT:
+                reset.run()
                 is_running = False
+                robot.StopSimulation()
                 sys.exit()
             # click button
             if event.type == pygame.USEREVENT:
@@ -375,8 +394,11 @@ def main():
                     if event.ui_element == changeDirection_button:
                         velocity.changeDirection()
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == reset_button:
+                    if event.ui_element == resetVec_button:
                         velocity.reset()
+                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    if event.ui_element == reset_button:
+                        reset.run()
 
                 # Modify
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
@@ -475,6 +497,7 @@ def main():
             manager.process_events(event)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_p:
+                    reset.run()
                     robot.StopSimulation()
                     sys.exit()
                 # Left Motor control with clicking buttons
@@ -502,6 +525,8 @@ def main():
                     velocity.changeDirection()
                 elif event.key == pygame.K_y:
                     velocity.reset()
+                elif event.key == pygame.K_u:
+                    reset.run()
 
                 # modify
                 elif event.key == pygame.K_UP:
@@ -521,4 +546,10 @@ def main():
         pygame.display.update()
                     
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("Keyboard Interrupted")
+        reset.run()
+        sys.exit(0)
+
