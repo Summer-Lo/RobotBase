@@ -109,6 +109,8 @@ def main():
     Sub5_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((190, 25), (60, 45)),text='-0.5',manager=manager)
     Add_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((330, 25), (60, 45)),text='+0.1',manager=manager)
     Sub_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((260, 25), (60, 45)),text='-0.1',manager=manager)
+    reset_button= pygame_gui.elements.UIButton(relative_rect=pygame.Rect((470, 25), (150, 45)),text='Reset Robot',manager=manager)
+
     # Motor left control button
     motorLeftAdd5_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((400, 75), (60, 45)),text='>> (R)',manager=manager)
     motorLeftSub5_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((190, 75), (60, 45)),text='(Q) <<',manager=manager)
@@ -122,8 +124,8 @@ def main():
     
     # Pose
     changeDirection_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 175), (150, 45)),text='Forward/Backward',manager=manager)
-    resetVec_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((250, 175), (150, 45)),text='Reset Velocity',manager=manager)
-    reset_button= pygame_gui.elements.UIButton(relative_rect=pygame.Rect((450, 175), (150, 45)),text='Reset Robot',manager=manager)
+    setVec_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((250, 175), (150, 45)),text='Set Velocity',manager=manager)
+    resetVec_button= pygame_gui.elements.UIButton(relative_rect=pygame.Rect((450, 175), (150, 45)),text='Reset Velocity',manager=manager)
 
     # Modify
     massIncrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 225), (150, 45)),text='Mass Increase',manager=manager)
@@ -345,49 +347,52 @@ def main():
                 sys.exit()
             # click button
             if event.type == pygame.USEREVENT:
+                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    if event.ui_element == reset_button:
+                        reset.run()
                 # Motor Left control
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == motorLeftAdd5_button:
                         print('Motor Left Velocity increase 0.5 m/s!')
-                        print("Left Motor Current Veclocity: ",hc.leftMotorVec)
-                        velocity.motorVeclocityPositive(hc.leftMotorHandle,0.5)
+                        print("Left Motor Current Velocity: ",hc.leftMotorVec)
+                        velocity.motorVelocityPositive(hc.leftMotorHandle,0.5)
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == motorLeftSub5_button:
                         print('Motor Left Velocity decrease 0.5 m/s!')
-                        print("Left Motor Current Veclocity: ",hc.leftMotorVec)
-                        velocity.motorVeclocityNegative(hc.leftMotorHandle,0.5)
+                        print("Left Motor Current Velocity: ",hc.leftMotorVec)
+                        velocity.motorVelocityNegative(hc.leftMotorHandle,0.5)
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == motorLeftAdd_button:
                         print('Motor Left Velocity increase 0.1 m/s!')
-                        print("Left Motor Current Veclocity: ",hc.leftMotorVec)
-                        velocity.motorVeclocityPositive(hc.leftMotorHandle,0.1)
+                        print("Left Motor Current Velocity: ",hc.leftMotorVec)
+                        velocity.motorVelocityPositive(hc.leftMotorHandle,0.1)
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == motorLeftSub_button:
                         print('Motor Left Velocity decrease 0.1 m/s!')
-                        print("Left Motor Current Veclocity: ",hc.leftMotorVec)
-                        velocity.motorVeclocityNegative(hc.leftMotorHandle,0.1)
+                        print("Left Motor Current Velocity: ",hc.leftMotorVec)
+                        velocity.motorVelocityNegative(hc.leftMotorHandle,0.1)
                 
                 # Motor Right
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == motorRightAdd5_button:
                         print('Motor Right Velocity increase 0.5 m/s!')
-                        print("Right Motor Current Veclocity: ",hc.rightMotorVec)
-                        velocity.motorVeclocityPositive(hc.rightMotorHandle,0.5)
+                        print("Right Motor Current Velocity: ",hc.rightMotorVec)
+                        velocity.motorVelocityPositive(hc.rightMotorHandle,0.5)
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == motorRightSub5_button:
                         print('Motor Right Velocity decrease 0.5 m/s!')
-                        print("Right Motor Current Veclocity: ",hc.rightMotorVec)
-                        velocity.motorVeclocityNegative(hc.rightMotorHandle,0.5)
+                        print("Right Motor Current Velocity: ",hc.rightMotorVec)
+                        velocity.motorVelocityNegative(hc.rightMotorHandle,0.5)
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == motorRightAdd_button:
                         print('Motor Right Velocity increase 0.1 m/s!')
-                        print("Right Motor Current Veclocity: ",hc.rightMotorVec)
-                        velocity.motorVeclocityPositive(hc.rightMotorHandle,0.1)
+                        print("Right Motor Current Velocity: ",hc.rightMotorVec)
+                        velocity.motorVelocityPositive(hc.rightMotorHandle,0.1)
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == motorRightSub_button:
                         print('Motor Right Velocity decrease 0.1 m/s!')
-                        print("Right Motor Current Veclocity: ",hc.rightMotorVec)
-                        velocity.motorVeclocityNegative(hc.rightMotorHandle,0.1)
+                        print("Right Motor Current Velocity: ",hc.rightMotorVec)
+                        velocity.motorVelocityNegative(hc.rightMotorHandle,0.1)
                 
                 # Pose
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
@@ -397,8 +402,8 @@ def main():
                     if event.ui_element == resetVec_button:
                         velocity.reset()
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == reset_button:
-                        reset.run()
+                    if event.ui_element == setVec_button:
+                        velocity.setmotorVelocity()
 
                 # Modify
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
@@ -502,23 +507,23 @@ def main():
                     sys.exit()
                 # Left Motor control with clicking buttons
                 elif event.key == pygame.K_q:
-                    velocity.motorVeclocityNegative(hc.leftMotorHandle,0.5)
+                    velocity.motorVelocityNegative(hc.leftMotorHandle,0.5)
                 elif event.key == pygame.K_w:
-                    velocity.motorVeclocityNegative(hc.leftMotorHandle,0.1)
+                    velocity.motorVelocityNegative(hc.leftMotorHandle,0.1)
                 elif event.key == pygame.K_e:
-                    velocity.motorVeclocityPositive(hc.leftMotorHandle,0.1)
+                    velocity.motorVelocityPositive(hc.leftMotorHandle,0.1)
                 elif event.key == pygame.K_r:
-                    velocity.motorVeclocityPositive(hc.leftMotorHandle,0.5)
+                    velocity.motorVelocityPositive(hc.leftMotorHandle,0.5)
 
                 # Right Motor control with clicking buttons
                 elif event.key == pygame.K_a:
-                    velocity.motorVeclocityNegative(hc.rightMotorHandle,0.5)
+                    velocity.motorVelocityNegative(hc.rightMotorHandle,0.5)
                 elif event.key == pygame.K_s:
-                    velocity.motorVeclocityNegative(hc.rightMotorHandle,0.1)
+                    velocity.motorVelocityNegative(hc.rightMotorHandle,0.1)
                 elif event.key == pygame.K_d:
-                    velocity.motorVeclocityPositive(hc.rightMotorHandle,0.1)
+                    velocity.motorVelocityPositive(hc.rightMotorHandle,0.1)
                 elif event.key == pygame.K_f:
-                    velocity.motorVeclocityPositive(hc.rightMotorHandle,0.5)
+                    velocity.motorVelocityPositive(hc.rightMotorHandle,0.5)
                 
                 # pose
                 elif event.key == pygame.K_t:

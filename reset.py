@@ -16,8 +16,12 @@ def resetRobot():
     robotPos = [float(hc.robotPosX),float(hc.robotPosY),float(hc.robotPosZ)]
     robotOri = [float(float(hc.robotAlpha)/RAD2DEG),float(float(hc.robotBeta)/RAD2DEG),float(float(hc.robotGamma)/RAD2DEG)]
     #print(robotPos)
-    _ = vrep.simxSetObjectPosition(clientID, int(hc.robotHandle), -1, robotPos, vrep.simx_opmode_blocking)
-    _ = vrep.simxSetObjectOrientation(clientID, int(hc.robotHandle), -1, robotOri, vrep.simx_opmode_blocking)
+    returnCode = 1
+    while (returnCode!=0):
+        returnCode = vrep.simxSetObjectPosition(clientID, int(hc.robotHandle), -1, robotPos, vrep.simx_opmode_blocking)
+    returnCode = 1
+    while (returnCode!=0):
+        returnCode = vrep.simxSetObjectOrientation(clientID, int(hc.robotHandle), -1, robotOri, vrep.simx_opmode_blocking)
 
 
 def resetJoint():
@@ -25,16 +29,24 @@ def resetJoint():
     for i in range(len(hc.jointHandle)):
         jointPos = [float(hc.jointPosX[i]),float(hc.jointPosY[i]),float(hc.jointPosZ[i])]
         jointOri = [float(float(hc.jointAlpha[i])/RAD2DEG),float(float(hc.jointBeta[i])/RAD2DEG),float(float(hc.jointGamma[i])/RAD2DEG)]
-        _ = vrep.simxSetObjectPosition(clientID, int(hc.jointHandle[i]), -1, jointPos, vrep.simx_opmode_blocking)
-        _ = vrep.simxSetObjectOrientation(clientID, int(hc.jointHandle[i]), -1, jointOri, vrep.simx_opmode_blocking)
+        returnCode = 1
+        while (returnCode!=0):
+            returnCode = vrep.simxSetObjectPosition(clientID, int(hc.jointHandle[i]), -1, jointPos, vrep.simx_opmode_blocking)
+        returnCode = 1
+        while (returnCode!=0):
+            returnCode = vrep.simxSetObjectOrientation(clientID, int(hc.jointHandle[i]), -1, jointOri, vrep.simx_opmode_blocking)
 
 def resetWheel():
     global clientID
     for i in range(len(hc.wheelHandle)):
         wheelPos = [float(hc.wheelPosX[i]),float(hc.wheelPosY[i]),float(hc.wheelPosZ[i])]
         wheelOri = [float(float(hc.wheelAlpha[i])/RAD2DEG),float(float(hc.wheelBeta[i])/RAD2DEG),float(float(hc.wheelGamma[i])/RAD2DEG)]
-        _ = vrep.simxSetObjectPosition(clientID, int(hc.wheelHandle[i]), -1, wheelPos, vrep.simx_opmode_blocking)
-        _ = vrep.simxSetObjectOrientation(clientID, int(hc.wheelHandle[i]), -1, wheelOri, vrep.simx_opmode_blocking)
+        returnCode = 1
+        while (returnCode!=0):
+            returnCode = vrep.simxSetObjectPosition(clientID, int(hc.wheelHandle[i]), -1, wheelPos, vrep.simx_opmode_blocking)
+        returnCode = 1
+        while (returnCode!=0):
+            returnCode = vrep.simxSetObjectOrientation(clientID, int(hc.wheelHandle[i]), -1, wheelOri, vrep.simx_opmode_blocking)
 
 def resetRobotMass(handle, value):
     global clientID
@@ -45,7 +57,7 @@ def resetRobotMass(handle, value):
         vrep.sim_scripttype_childscript,'massReset',[],[value],[],b'',vrep.simx_opmode_blocking)
     return retFloats
 
-def resetWheel():
+def resetWheelSize():
     global clientID
     value = 0.06
     factor = float(value) / float(hc.wheelScale)
@@ -62,10 +74,13 @@ def run():
     time.sleep(0.3)
     velocity.reset()
     resetRobotMass(int(hc.robotHandle),10)
-    resetWheel()
     resetRobot()
+    time.sleep(0.1)
     resetJoint()
+    time.sleep(0.1)
     resetWheel()
+    time.sleep(0.1)
+    resetWheelSize()
     time.sleep(0.3)
     _ = vrep.simxStartSimulation(clientID,vrep.simx_opmode_blocking)
 
