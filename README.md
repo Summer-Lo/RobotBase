@@ -28,10 +28,12 @@ Step 2: Launch Anaconda (remark: please don't update anaconda version)
 Step 3: Click the "Environments" button on the left side [Orange]
 
 Step 4: Click the the "Create" button on the left-bottom conern [Red]
+![image](https://github.com/Summer-Lo/RobotBase/blob/linux_v4.2.0/robotBase_image/anconda_environment.png)
 
 Step 5: Input the necessary information (Input Name and select Python version 3.8)
 
-Step 6: Click "Create" to complete environment creation
+Step 6: Click "Create" to complete environment creation [Green]
+![image](https://github.com/Summer-Lo/RobotBase/blob/linux_v4.2.0/robotBase_image/anconda_environmentCreate.png)
 
 ### 2.2. Install Python library
 Step 1: Switch the filter to "All" for display all library
@@ -47,10 +49,12 @@ mpmath
 ```
 numpy
 ```
-
+![image](https://github.com/Summer-Lo/RobotBase/blob/linux_v4.2.0/robotBase_image/anconda_mpmath.png)
 Step 5: Click "Apply" to download selected library [Blue][Purple]
+![image](https://github.com/Summer-Lo/RobotBase/blob/linux_v4.2.0/robotBase_image/anconda_library.png)
 
 Step 6: Run the terminal with the created environment [Red]
+![image](https://github.com/Summer-Lo/RobotBase/blob/linux_v4.2.0/robotBase_image/anconda_terminal.png)
 
 Step 7: Type the following command to download pygame and pygame-gui
 ```
@@ -66,7 +70,7 @@ Step 3: Change the directory by typing following command with changing {your fil
 ```
 cd /D {Inout_Your_Folder_Path}
 ```
-
+![image](https://github.com/Summer-Lo/RobotBase/blob/linux_v4.2.0/robotBase_image/anconda_filePath.png)
 Step 4: Type the following command to execute the program
 ```
 python robotBase.py
@@ -75,6 +79,7 @@ python robotBase.py
 Remark: Please make sure that the terminal opened inside your anaconda environment. You can see that it will display your environment name in each row header.
 
 ## 4. Control Panel
+![image](https://github.com/Summer-Lo/RobotBase/blob/linux_v4.2.0/robotBase_image/anconda_panel.png)
 [Red]: Motors angular velocity control (-0.5, -0.1, +0.1, +0.5 rad/s)
 
 [Orange]: Robot movement control
