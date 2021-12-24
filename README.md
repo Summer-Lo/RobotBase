@@ -42,7 +42,7 @@ Step 2: Search the following library name
 
 Step 3: Click the left trangle for downloading
 
-Step 4: Repeat the Step 2 & Step 3 for install the following library\
+Step 4: Repeat the Step 2 & Step 3 for install the following libraries
 ```
 mpmath
 ```
