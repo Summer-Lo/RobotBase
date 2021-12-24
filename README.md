@@ -80,6 +80,7 @@ Remark: Please make sure that the terminal opened inside your anaconda environme
 
 ## 4. Control Panel
 ![image](https://github.com/Summer-Lo/RobotBase/blob/linux_v4.2.0/robotBase_image/anconda_panel.png)
+
 [Red]: Motors angular velocity control (-0.5, -0.1, +0.1, +0.5 rad/s)
 
 [Orange]: Robot movement control
@@ -105,11 +106,13 @@ Remark: Please make sure that the terminal opened inside your anaconda environme
 [Purple]: Motors' Torque
 
 ## 5. Observation
-There are some graphs which display the data for selecting the motor
+- There are some graphs which display the data for selecting the motor
 
-Red for left motor
+- Red for left motor
 
-Blue for right motor
+- Blue for right motor
+
+![image](https://github.com/Summer-Lo/RobotBase/blob/linux_v4.2.0/robotBase_image/interface.png)
 
 ### 1. MotorVelocity (Degrees/Seconds)
 This graph shows the motors' angular velocity with the time changed. 
