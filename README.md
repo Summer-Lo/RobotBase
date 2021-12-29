@@ -1,5 +1,8 @@
 # RobotBase
-A simulation for testing the robot performance with different velocity, toque, mass, wheel configuration.
+A simulation for testing the robot performance with different velocity, toque, mass, and wheel configurations.
+
+**For Window User**
+You may use anaconda to create a virtual environment to execute a Python program.
 
 ## 1. Software installation
 ### 1.1. CoppliaSim v4.2.0 (Edu)
@@ -36,13 +39,13 @@ Step 6: Click "Create" to complete environment creation [Green]
 ![image](https://github.com/Summer-Lo/RobotBase/blob/linux_v4.2.0/robotBase_image/anconda_environmentCreate.png)
 
 ### 2.2. Install Python library
-Step 1: Switch the filter to "All" for display all library
+Step 1: Switch the filter to "All" to display all library
 
 Step 2: Search the following library name
 
-Step 3: Click the left trangle for downloading
+Step 3: Click the left triangle for downloading
 
-Step 4: Repeat the Step 2 & Step 3 for install the following libraries
+Step 4: Repeat  Step 2 & Step 3 to install the following libraries
 ```
 mpmath
 ```
@@ -66,7 +69,7 @@ Step 1: Open CoppliaSim with the "RobotBase_v4.ttt" scene
 
 Step 2: Open the terminal with the created environment
 
-Step 3: Change the directory by typing following command with changing {your file directory}
+Step 3: Change the directory by typing the following command with changing {your file directory}
 ```
 cd /D {Inout_Your_Folder_Path}
 ```
@@ -87,7 +90,7 @@ Remark: Please make sure that the terminal opened inside your anaconda environme
 
 - Forward/Backward: change the robot direction
 
-- Set Velocity: Input value of motors' angular velocity (rad/s) for diriving the robot forward
+- Set Velocity: Input value of motors' angular velocity (rad/s) for driving the robot forward
 
 - Reset Velocity: Reset the robot velocity to become 0 rad/s (stop)
 
@@ -106,11 +109,11 @@ Remark: Please make sure that the terminal opened inside your anaconda environme
 [Purple]: Motors' Torque
 
 ## 5. Observation
-- There are some graphs which display the data for selecting the motor
+- There are some graphs that display the data for selecting the motor
 
-- Red for left motor
+- Red for the left motor
 
-- Blue for right motor
+- Blue for the right motor
 
 ![image](https://github.com/Summer-Lo/RobotBase/blob/linux_v4.2.0/robotBase_image/interface.png)
 
@@ -126,11 +129,11 @@ This graph shows the front Wheels' angular velocity with the time changed.
 ### 4. Graph (x:Degrees/Seconds)(y:kg*m^2/s^2)
 This graph shows the relationship between the motors' angular velocity and torque.
 
-X-axis for angular velocity
+The X-axis for angular velocity
 
-Y-axis for torque
+The Y-axis for torque
 
 ### 5. linearVelocity (Meters/Seconds)
-This graph shows the robot linear velocity with the time changed. 
+This graph shows the robot's linear velocity with the time changed. 
 
 

@@ -68,6 +68,10 @@ def resetWheelSize():
     print(f"The current radius of wheels are: {float(hc.wheelScale)}")
     return result
 
+def resetGraph():
+    global clientID
+    res, retInts, retFloats, retStrings, retBuffer = vrep.simxCallScriptFunction(clientID, hc.robotName,\
+        vrep.sim_scripttype_childscript,'resetGraph',[],[],[],b'',vrep.simx_opmode_blocking)
 
 def run():
     _ = vrep.simxPauseSimulation(clientID,vrep.simx_opmode_blocking)

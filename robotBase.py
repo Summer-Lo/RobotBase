@@ -350,6 +350,7 @@ def main():
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == reset_button:
                         reset.run()
+                        reset.resetGraph()
                 # Motor Left control
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == motorLeftAdd5_button:
@@ -532,6 +533,7 @@ def main():
                     velocity.reset()
                 elif event.key == pygame.K_u:
                     reset.run()
+                    reset.resetGraph()
 
                 # modify
                 elif event.key == pygame.K_UP:
