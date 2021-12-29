@@ -4,6 +4,7 @@ import time
 import client_config as hc
 import time
 import vrep
+import sim
 
 
 
@@ -30,10 +31,18 @@ def scaleWheel():
     print(f"The current radius of wheels are: {float(hc.wheelScale)}")
     return result
 
+def updateJointMaxTorque():
+    global clientID
+    maxTorque = float(input("Please input the max torque of two motors: "))
+    sim.simxSetJointMaxForce(clientID, hc.leftMotorHandle,maxTorque,vrep.simx_opmode_blocking)
+    sim.simxSetJointMaxForce(clientID, hc.rightMotorHandle,maxTorque,vrep.simx_opmode_blocking)
+    _,leftMotorMaxTorque = sim.simxGetJointMaxForce(clientID, hc.leftMotorHandle,vrep.simx_opmode_blocking)
+    _,rightMotorMaxTorque = sim.simxGetJointMaxForce(clientID, hc.rightMotorHandle,vrep.simx_opmode_blocking)
+    print(f"Current left motor max torque is {leftMotorMaxTorque}")
+    print(f"Current right motor max torque is {rightMotorMaxTorque}")
 
 #testing
 if __name__ == '__main__':
-    while True:
-        result = scaleWheel()
+    updateJointMaxTorque()
 
 

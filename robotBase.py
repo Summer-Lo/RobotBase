@@ -131,6 +131,8 @@ def main():
     massIncrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 225), (150, 45)),text='Mass Increase',manager=manager)
     massDecrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((250, 225), (150, 45)),text='Mass Decrease',manager=manager)
     scaleWheel_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((450, 225), (150, 45)),text='Wheel Dimension',manager=manager)
+    
+    setMaxTorque_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 275), (170, 45)),text='Set Motor Max Torque',manager=manager)
     '''
     # Joint 3 button
     joint3Add5_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((400, 175), (45, 45)),text='>>',manager=manager)
@@ -207,18 +209,18 @@ def main():
             #----------------------------------------Robot mass (start)----------------------------------------
             textInfoTopic = font.render('---------Robot Information---------', True, blue, white)
             textRectInfoTopic = textInfoTopic.get_rect()
-            textRectInfoTopic.center = (310, 300 )
+            textRectInfoTopic.center = (310, 350 )
             screen.blit(textInfoTopic, textRectInfoTopic)
-            X = 480
+            X = 460
             textInfoTitle = font.render(str(massWheelTitle[i]), True, black, white)
             textRectInfoTitle = textInfoTitle.get_rect()
-            textRectInfoTitle.center = (X-355  , 350+(i*50) )
+            textRectInfoTitle.center = (X-355 +(i*300)  , 400)
             screen.blit(textInfoTitle, textRectInfoTitle)
             
             # Mass Information Clear
             textInfoClear = font.render('                     ', True, black, white)
             textRectInfoClear = textInfoClear.get_rect()
-            textRectInfoClear.center = (X-150 , 350+(i*50) )
+            textRectInfoClear.center = (X-220 +(i*310), 400)
             screen.blit(textInfoClear, textRectInfoClear)
             
             # Mass Information
@@ -232,7 +234,7 @@ def main():
             elif(i == 1):
                 textInfo = font.render(str(massWheelinfo[i])+' m', True, black, white)
             textRectInfo = textInfo.get_rect()
-            textRectInfo.center = (X-150 , 350+(i*50) )
+            textRectInfo.center = (X-220 +(i*310) , 400)
             screen.blit(textInfo, textRectInfo)
             #----------------------------------------Robot mass (end)----------------------------------------
 
@@ -416,6 +418,10 @@ def main():
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == scaleWheel_button:
                         modify.scaleWheel()
+                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    if event.ui_element == setMaxTorque_button:
+                        modify.updateJointMaxTorque()
+                        
                 
                 '''
                 # Joint 3
@@ -501,6 +507,11 @@ def main():
                         robot.setJointAngle()               
                 '''
             manager.process_events(event)
+            # Key used:
+            # q, w, e, r, t, y, u, 
+            # a, s, d, f, 
+            # m,
+            # up, down, 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_p:
                     reset.run()
@@ -534,6 +545,8 @@ def main():
                 elif event.key == pygame.K_u:
                     reset.run()
                     reset.resetGraph()
+                elif event.key == pygame.K_i:
+                    modify.updateJointMaxTorque()
 
                 # modify
                 elif event.key == pygame.K_UP:
