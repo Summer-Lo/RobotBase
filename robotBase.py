@@ -26,6 +26,7 @@ import info
 import sensor
 import modify
 import reset
+import loading
 
 class robotBase:
 
@@ -346,6 +347,9 @@ def main():
             # exit the program
             if event.type == pygame.QUIT:
                 reset.run()
+                reset.resetJointMaxTorque(1)
+                loading.scaleLoading()
+                loading.placeLoading()
                 is_running = False
                 robot.StopSimulation()
                 sys.exit()
@@ -355,7 +359,10 @@ def main():
                     if event.ui_element == reset_button:
                         reset.run()
                         reset.resetGraph()
-                        reset.resetJointMaxTorque(0.1)
+                        reset.resetJointMaxTorque(1)
+                        loading.scaleLoading()
+                        loading.placeLoading()
+
 
                 # Motor Left control
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
@@ -373,6 +380,7 @@ def main():
                         print('Motor Left Velocity increase 0.1 m/s!')
                         print("Left Motor Current Velocity: ",hc.leftMotorVec)
                         velocity.motorVelocityPositive(hc.leftMotorHandle,0.1)
+
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == motorLeftSub_button:
                         print('Motor Left Velocity decrease 0.1 m/s!')
@@ -416,12 +424,18 @@ def main():
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == massIncrease_button:
                         modify.updateRobotMass(hc.robotHandle,10)
+                        loading.scaleLoading()
+                        loading.placeLoading()
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == massDecrease_button:
                         modify.updateRobotMass(hc.robotHandle,-10)
+                        loading.scaleLoading()
+                        loading.placeLoading()
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == massConfig_button:
                         modify.setRobotMass()
+                        loading.scaleLoading()
+                        loading.placeLoading()
                 
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == setMaxTorque_button:
@@ -560,8 +574,12 @@ def main():
                 # modify
                 elif event.key == pygame.K_UP:
                     modify.updateRobotMass(hc.robotHandle,10)
+                    loading.scaleLoading()
+                    loading.placeLoading()
                 elif event.key == pygame.K_DOWN:
                     modify.updateRobotMass(hc.robotHandle,-10)
+                    loading.scaleLoading()
+                    loading.placeLoading()
                 elif event.key == pygame.K_m:
                     modify.scaleWheel()
                 else:

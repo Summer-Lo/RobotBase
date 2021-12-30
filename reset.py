@@ -56,7 +56,8 @@ def resetRobotMass(handle, value):
         #vrep.sim_scripttype_childscript,'rg2Open',[],[],[],b'',vrep.simx_opmode_blocking)
     res, retInts, retFloats, retStrings, retBuffer = vrep.simxCallScriptFunction(clientID, hc.robotName,\
         vrep.sim_scripttype_childscript,'massReset',[],[value],[],b'',vrep.simx_opmode_blocking)
-    return retFloats
+    hc.mass = float(retFloats[0])
+    return retFloats[0]
 
 def resetWheelSize():
     global clientID

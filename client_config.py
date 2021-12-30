@@ -4,6 +4,7 @@ import numpy as np
 
 # Object name for left side
 robotName = "RobotBase"
+loadingName = "loading"
 
 # Object name for left side
 leftMotorName = "RobotBase_leftMotor"
@@ -43,6 +44,7 @@ print("-----------------Simulation start-----------------")
 
 # Initization object handles
 _, robotHandle = vrep.simxGetObjectHandle(clientID, robotName, vrep.simx_opmode_blocking)
+_, loadingHandle = vrep.simxGetObjectHandle(clientID, loadingName, vrep.simx_opmode_blocking)
 
 _, leftMotorHandle = vrep.simxGetObjectHandle(clientID, leftMotorName, vrep.simx_opmode_blocking)
 _, leftJointBehindHandle = vrep.simxGetObjectHandle(clientID, leftJointBehindName, vrep.simx_opmode_blocking)
@@ -68,8 +70,15 @@ print("Value list of Object Handle: ",val_list)
 leftMotorVec = 0
 rightMotorVec = 0
 
+#Robot Configuration
+robotScale = 0.01
+mass = 10   #kg
+loadingScale = 0.01
+
 # Wheel Configuration
 wheelScale = 0.06
+
+
 
 # orginal position and orientation
 # wheel = [leftWheel, rightWheel, leftWheelBehind, rightWheelBehind]
