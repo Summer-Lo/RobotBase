@@ -82,7 +82,7 @@ python robotBase.py
 Remark: Please make sure that the terminal opened inside your anaconda environment. You can see that it will display your environment name in each row header.
 
 ## 4. Control Panel
-![image](https://github.com/Summer-Lo/RobotBase/blob/linux_v4.2.0/robotBase_image/anconda_panel.png)
+![image](https://github.com/Summer-Lo/RobotBase/blob/linux_v4.2.0/robotBase_image/panel_interface.png)
 
 [Red]: Motors angular velocity control (-0.5, -0.1, +0.1, +0.5 rad/s)
 
@@ -90,23 +90,31 @@ Remark: Please make sure that the terminal opened inside your anaconda environme
 
 - Forward/Backward: change the robot direction
 
-- Set Velocity: Input value of motors' angular velocity (rad/s) for driving the robot forward
+- Set Velocity: Input value of motors' positive angular velocity (rad/s) for driving the robot forward or negative angular velocity (rad/s) for driving backward
 
 - Reset Velocity: Reset the robot velocity to become 0 rad/s (stop)
 
-[Yellow]: Mass (kg) and wheel dimension (m) configuration
+[Yellow]: Mass (kg)  configuration (Remark: keep robot mass in range of 10 - 100 kg)
 
 - Mass Increase: Increase the robot mass with 10 kg
 
 - Mass Decrease: Decrease the robot mass with 10 kg
 
-- Wheel Dimension: Change the Wheel dimension (m) with input at terminal
+- Mass Config: Input value for configurating the robot mass
 
-[Green]: Robot information (Mass and Wheel diameter)
 
-[Blue]: Robot linear and angular Velocity
 
-[Purple]: Motors' Torque
+[Green]: Motor Max Torque and Wheel Configuration (Max Torque and Wheel diameter)
+
+- Set Motor Max Torque: Input the value (Nm) for configurating the motors' max torque
+
+- Wheel Dimension: Input the wheel dimension (m) for modifying the size of robot's wheels
+
+[Blue]: Robot information (Mass and Wheel diameter)
+
+[Purple]: Robot linear and angular Velocity
+
+[Gray]: Motors' Torque
 
 ## 5. Observation
 - There are some graphs that display the data for selecting the motor
@@ -117,13 +125,13 @@ Remark: Please make sure that the terminal opened inside your anaconda environme
 
 ![image](https://github.com/Summer-Lo/RobotBase/blob/linux_v4.2.0/robotBase_image/interface.png)
 
-### 1. MotorVelocity (Degrees/Seconds)
+### 1. MotorVelocity (Degrees/Seconds)      --Hided--
 This graph shows the motors' angular velocity with the time changed. 
 
-### 2. MotorTorque (kg*m^2/s^2)
+### 2. MotorTorque (kg*m^2/s^2)     --Hided--
 This graph shows the motors' torque with the time changed. 
 
-### 3. WheelAngularVelocity (Degrees/Seconds)
+### 3. WheelAngularVelocity (Degrees/Seconds)       --Hided--
 This graph shows the front Wheels' angular velocity with the time changed. 
 
 ### 4. Graph (x:Degrees/Seconds)(y:kg*m^2/s^2)

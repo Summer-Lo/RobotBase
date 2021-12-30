@@ -130,9 +130,11 @@ def main():
     # Modify
     massIncrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 225), (150, 45)),text='Mass Increase',manager=manager)
     massDecrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((250, 225), (150, 45)),text='Mass Decrease',manager=manager)
-    scaleWheel_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((450, 225), (150, 45)),text='Wheel Dimension',manager=manager)
+    massConfig_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((450, 225), (150, 45)),text='Mass Config',manager=manager)
     
-    setMaxTorque_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 275), (170, 45)),text='Set Motor Max Torque',manager=manager)
+    setMaxTorque_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((100, 275), (200, 45)),text='Set Motor Max Torque',manager=manager)
+    scaleWheel_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 275), (200, 45)),text='Wheel Dimension',manager=manager)
+
     '''
     # Joint 3 button
     joint3Add5_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((400, 175), (45, 45)),text='>>',manager=manager)
@@ -353,6 +355,8 @@ def main():
                     if event.ui_element == reset_button:
                         reset.run()
                         reset.resetGraph()
+                        reset.resetJointMaxTorque(0.1)
+
                 # Motor Left control
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == motorLeftAdd5_button:
@@ -416,13 +420,16 @@ def main():
                     if event.ui_element == massDecrease_button:
                         modify.updateRobotMass(hc.robotHandle,-10)
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == scaleWheel_button:
-                        modify.scaleWheel()
+                    if event.ui_element == massConfig_button:
+                        modify.setRobotMass()
+                
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == setMaxTorque_button:
-                        modify.updateJointMaxTorque()
-                        
-                
+                        modify.updateJointMaxTorque() 
+                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    if event.ui_element == scaleWheel_button:
+                        modify.scaleWheel()
+
                 '''
                 # Joint 3
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
@@ -508,7 +515,7 @@ def main():
                 '''
             manager.process_events(event)
             # Key used:
-            # q, w, e, r, t, y, u, 
+            # q, w, e, r, t, y, u, i, o
             # a, s, d, f, 
             # m,
             # up, down, 
@@ -547,6 +554,8 @@ def main():
                     reset.resetGraph()
                 elif event.key == pygame.K_i:
                     modify.updateJointMaxTorque()
+                elif event.key == pygame.K_o:
+                    modify.setRobotMass()
 
                 # modify
                 elif event.key == pygame.K_UP:

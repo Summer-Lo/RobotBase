@@ -5,6 +5,7 @@ import client_config as hc
 import time
 import vrep
 import velocity
+import sim
 
 
 
@@ -72,6 +73,16 @@ def resetGraph():
     global clientID
     res, retInts, retFloats, retStrings, retBuffer = vrep.simxCallScriptFunction(clientID, hc.robotName,\
         vrep.sim_scripttype_childscript,'resetGraph',[],[],[],b'',vrep.simx_opmode_blocking)
+
+def resetJointMaxTorque(value):
+    global clientID
+    maxTorque = float(value)
+    sim.simxSetJointMaxForce(clientID, hc.leftMotorHandle,maxTorque,vrep.simx_opmode_blocking)
+    sim.simxSetJointMaxForce(clientID, hc.rightMotorHandle,maxTorque,vrep.simx_opmode_blocking)
+    _,leftMotorMaxTorque = sim.simxGetJointMaxForce(clientID, hc.leftMotorHandle,vrep.simx_opmode_blocking)
+    _,rightMotorMaxTorque = sim.simxGetJointMaxForce(clientID, hc.rightMotorHandle,vrep.simx_opmode_blocking)
+    print(f"Current left motor max torque is {leftMotorMaxTorque}")
+    print(f"Current right motor max torque is {rightMotorMaxTorque}")
 
 def run():
     _ = vrep.simxPauseSimulation(clientID,vrep.simx_opmode_blocking)

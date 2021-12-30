@@ -20,6 +20,14 @@ def updateRobotMass(handle, value):
         vrep.sim_scripttype_childscript,'massModify',[],[value],[],b'',vrep.simx_opmode_blocking)
     return retFloats
 
+def setRobotMass():
+    global clientID
+    value = float(input("Please input the robot mass: "))
+    res, retInts, retFloats, retStrings, retBuffer = vrep.simxCallScriptFunction(clientID, hc.robotName,\
+        vrep.sim_scripttype_childscript,'setMass',[],[value],[],b'',vrep.simx_opmode_blocking)
+    print(f"Current robot mass is : {retFloats}")
+    return retFloats
+
 def scaleWheel():
     global clientID
     value = input("Please input the radius of Wheels: ")
@@ -43,6 +51,6 @@ def updateJointMaxTorque():
 
 #testing
 if __name__ == '__main__':
-    updateJointMaxTorque()
+    setRobotMass()
 
 
