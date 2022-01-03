@@ -149,4 +149,15 @@ The Y-axis for torque
 ### 5. linearVelocity (Meters/Seconds)
 This graph shows the robot's linear velocity with the time changed. 
 
+## 6. Demonstration
+This video shows the basic movement of the robot. The action involved in this demonstration which includes ">> (R)", ">> (F)", "Forward/Backward", "Set Velocity", and "Reset Velocity"
+![image](https://github.com/Summer-Lo/RobotBase/blob/linux_v4.2.0/robotBase_image/robotMovement.gif)
+
+This video shows the "Reset" function which will be operated automatically before stopping the program. Also, the "Reset Robot" button is provided to use this function.
+![image](https://github.com/Summer-Lo/RobotBase/blob/linux_v4.2.0/robotBase_image/reset.gif)
+
+This video shows the configuration of robot mass during the simulation running. When the robot mass is changing, the thickness of loading will be changed according to the robot mass. The action involved in this demonstration includes "Mass Increase", "Mass Decrease", and "Mass Config".
+![image](https://github.com/Summer-Lo/RobotBase/blob/linux_v4.2.0/robotBase_image/mass.gif)
+
+
 
