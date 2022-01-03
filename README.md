@@ -5,8 +5,9 @@ A simulation for testing the robot performance with different velocity, toque, m
 You may use anaconda to create a virtual environment to execute a Python program.
 
 ## Coppliasim Scene Version
-RobotBase_v4.ttt for **mini moblie robot**
-RobotBase_v5.ttt for **IC382 Robot**
+- RobotBase_v4.ttt for **mini moblie robot**
+
+- RobotBase_v5.ttt for **IC382 Robot**
 
 ## 1. Software installation
 ### 1.1. CoppliaSim v4.2.0 (Edu)
