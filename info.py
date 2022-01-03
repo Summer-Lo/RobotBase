@@ -4,6 +4,7 @@ import time
 import client_config as hc
 import time
 import vrep
+import sim
 
 
 
@@ -15,6 +16,12 @@ def getMotorTorque(handle):
     motorHandle = int(handle)
     returnCode, value = vrep.simxGetJointForce(clientID, motorHandle, vrep.simx_opmode_oneshot)
     return value
+
+def getMotorMaxTorque(handle):
+    global clientID
+    motorHandle = int(handle)
+    _,motorMaxTorque = sim.simxGetJointMaxForce(clientID, motorHandle,vrep.simx_opmode_blocking)
+    return motorMaxTorque
 
 def getObjectVelocity(handle):
     global clientID

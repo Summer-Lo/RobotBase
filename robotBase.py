@@ -302,19 +302,36 @@ def main():
             textRectInfoClear = textInfoClear.get_rect()
             textRectInfoClear.center = (X-150 , 700+(i*50) )
             screen.blit(textInfoClear, textRectInfoClear)
+
+            textInfoClear = font.render('                                                ', True, black, white)
+            textRectInfoClear = textInfoClear.get_rect()
+            textRectInfoClear.center = (X+20 , 700+(i*50) )
+            screen.blit(textInfoClear, textRectInfoClear)
             
             # Torque Information
             leftTorque = info.getMotorTorque(hc.leftMotorHandle)
             rightTorque = info.getMotorTorque(hc.rightMotorHandle)
+            leftMaxTorque = info.getMotorMaxTorque(hc.leftMotorHandle)
+            rightMaxTorque = info.getMotorMaxTorque(hc.rightMotorHandle)
             #print(type(leftTorque))
             #print(type(rightTorque))
             leftTorque = round(leftTorque,4)
             rightTorque = round(rightTorque,4)
+            leftMaxTorque = round(leftMaxTorque,4)
+            rightMaxTorque = round(rightMaxTorque,4)
+
             targetinfo = [round(leftTorque,4),round(rightTorque,4)]
+            maxTorqueInfo = [round(leftMaxTorque,4),round(rightMaxTorque,4)]
+            
             textInfo = font.render(str(targetinfo[i])+' N m', True, black, white)
             textRectInfo = textInfo.get_rect()
             textRectInfo.center = (X-150 , 700+(i*50) )
             screen.blit(textInfo, textRectInfo)
+
+            maxTInfo = font.render('(Max: '+str(maxTorqueInfo[i])+' Nm'+')', True, blue, white)
+            maxTRectInfo = maxTInfo.get_rect()
+            maxTRectInfo.center = (X+20 , 700+(i*50) )
+            screen.blit(maxTInfo, maxTRectInfo)
 
             #----------------------------------------Motor Torque (end)----------------------------------------
 
