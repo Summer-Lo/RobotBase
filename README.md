@@ -4,6 +4,10 @@ A simulation for testing the robot performance with different velocity, toque, m
 **For Window User**
 You may use anaconda to create a virtual environment to execute a Python program.
 
+**Coppliasim Scene Version**
+RobotBase_v4.ttt for mini moblie robot
+RobotBase_v5.ttt for IC382 Robot
+
 ## 1. Software installation
 ### 1.1. CoppliaSim v4.2.0 (Edu)
 installation link
@@ -65,7 +69,7 @@ pip install pygame-gui
 ```
 
 ## 3. Program execution
-Step 1: Open CoppliaSim with the "RobotBase_v4.ttt" scene
+Step 1: Open CoppliaSim with the "RobotBase_v5.ttt" scene
 
 Step 2: Open the terminal with the created environment
 
@@ -94,7 +98,7 @@ Remark: Please make sure that the terminal opened inside your anaconda environme
 
 - Reset Velocity: Reset the robot velocity to become 0 rad/s (stop)
 
-[Yellow]: Mass (kg)  configuration (Remark: keep robot mass in range of 10 - 100 kg)
+[Yellow]: Mass (kg)  configuration (Remark: keep robot mass in range of 10 -  400kg)
 
 - Mass Increase: Increase the robot mass with 10 kg
 

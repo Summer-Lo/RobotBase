@@ -73,14 +73,39 @@ rightMotorVec = 0
 #Robot Configuration
 robotScale = 0.01
 mass = 10   #kg
-loadingScale = 0.01
+loadingScale = 0.005
 
 # Wheel Configuration
-wheelScale = 0.06
+wheelScale = 0.12
+
+# orginal position and orientation (for IC382)
+# wheel = [leftWheel, rightWheel, leftWheelBehind, rightWheelBehind]
+wheelPosX = [0.33,-0.33,0.33,-0.33]
+wheelPosY = [-0.4,-0.4,0.4,0.4]
+wheelPosZ = [0.06,0.06,0.06,0.06]
+wheelAlpha = [0,0,0,0]
+wheelBeta = [90,90,90,90]
+wheelGamma = [-90,-90,-90,-90]
+
+# Joint = [leftMotor, rightMotor, leftJointBehind, rightJointBehind]
+jointPosX = [0.31,-0.31,0.31,-0.31]
+jointPosY = [-0.4,-0.4,0.4,0.4]
+jointPosZ = [0.06,0.06,0.06,0.06]
+jointAlpha = [0,0,0,0]
+jointBeta = [90,90,90,90]
+jointGamma = [-90,-90,-90,-90]
+
+# Robot
+robotPosX = 0
+robotPosY = 0
+robotPosZ = 0.06
+robotAlpha = 0
+robotBeta = 0
+robotGamma = 0
 
 
-
-# orginal position and orientation
+'''
+# orginal position and orientation (for mini moblie robot)
 # wheel = [leftWheel, rightWheel, leftWheelBehind, rightWheelBehind]
 wheelPosX = [0.065,-0.065,0.065,-0.065]
 wheelPosY = [-0.075,-0.075,0.075,0.075]
@@ -104,3 +129,4 @@ robotPosZ = 0.05
 robotAlpha = 0
 robotBeta = 0
 robotGamma = 0
+'''

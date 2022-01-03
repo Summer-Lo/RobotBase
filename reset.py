@@ -7,8 +7,6 @@ import vrep
 import velocity
 import sim
 
-
-
 RAD2DEG = 180 / math.pi
 clientID = hc.clientID
 
@@ -61,7 +59,7 @@ def resetRobotMass(handle, value):
 
 def resetWheelSize():
     global clientID
-    value = 0.06
+    value = 0.12
     factor = float(value) / float(hc.wheelScale)
     res, retInts, retFloats, retStrings, retBuffer = vrep.simxCallScriptFunction(clientID, hc.robotName,\
         vrep.sim_scripttype_childscript,'scaleReset',[],[factor],[],b'',vrep.simx_opmode_blocking)
