@@ -150,14 +150,26 @@ The Y-axis for torque
 This graph shows the robot's linear velocity with the time changed. 
 
 ## 6. Demonstration
+
+### 6.1. Basic Control
 This video shows the basic movement of the robot. The action involved in this demonstration which includes ">> (R)", ">> (F)", "Forward/Backward", "Set Velocity", and "Reset Velocity"
 ![image](https://github.com/Summer-Lo/RobotBase/blob/linux_v4.2.0/robotBase_image/robotMovement.gif)
 
+### 6.2. Reset Function
 This video shows the "Reset" function which will be operated automatically before stopping the program. Also, the "Reset Robot" button is provided to use this function.
 ![image](https://github.com/Summer-Lo/RobotBase/blob/linux_v4.2.0/robotBase_image/reset.gif)
 
+### 6.3. Mass Configuration
 This video shows the configuration of robot mass during the simulation running. When the robot mass is changing, the thickness of loading will be changed according to the robot mass. The action involved in this demonstration includes "Mass Increase", "Mass Decrease", and "Mass Config".
 ![image](https://github.com/Summer-Lo/RobotBase/blob/linux_v4.2.0/robotBase_image/mass.gif)
+
+### 6.4. Motor Max Torque Configuration
+This video shows the "Set Motor Max Torque" function which can limit the motor torque. 
+![image](https://github.com/Summer-Lo/RobotBase/blob/linux_v4.2.0/robotBase_image/maxTorque.gif)
+
+### 6.5. Wheel Dimension Configuration
+This video shows the "Wheel Dimension" function which configurate the wheel diameter (m).
+![image](https://github.com/Summer-Lo/RobotBase/blob/linux_v4.2.0/robotBase_image/wheelConfig.gif)
 
 
 
