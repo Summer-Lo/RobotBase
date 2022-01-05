@@ -103,6 +103,8 @@ robotAlpha = 0
 robotBeta = 0
 robotGamma = 0
 
+# Pause or resume status
+pauseOrResume = 0
 
 '''
 # orginal position and orientation (for mini moblie robot)

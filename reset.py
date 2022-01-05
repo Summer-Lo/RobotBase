@@ -83,6 +83,20 @@ def resetJointMaxTorque(value):
     print(f"Current left motor max torque is {leftMotorMaxTorque}")
     print(f"Current right motor max torque is {rightMotorMaxTorque}")
 
+def pauseOrResume():
+    global clientID
+    if(hc.pauseOrResume == 0):
+        _ = vrep.simxPauseSimulation(clientID,vrep.simx_opmode_blocking)
+        hc.pauseOrResume = 1
+        print("-----The simulation pause now!-----")
+        print("You can capture the graph by use window screen capture function")
+        print("Please click the 'Pause/Resume' button for resume the simulation")
+    elif(hc.pauseOrResume == 1):
+        _ = vrep.simxStartSimulation(clientID,vrep.simx_opmode_blocking)
+        hc.pauseOrResume = 0
+        print("-----The simulation resume now!-----")
+        print("Please make sure to save the graph for answering the questions.")
+
 def run():
     _ = vrep.simxPauseSimulation(clientID,vrep.simx_opmode_blocking)
     time.sleep(0.3)

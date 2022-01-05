@@ -133,8 +133,10 @@ def main():
     massDecrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((250, 225), (150, 45)),text='Mass Decrease',manager=manager)
     massConfig_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((450, 225), (150, 45)),text='Mass Config',manager=manager)
     
-    setMaxTorque_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((100, 275), (200, 45)),text='Set Motor Max Torque',manager=manager)
-    scaleWheel_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 275), (200, 45)),text='Wheel Dimension',manager=manager)
+    setMaxTorque_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((21, 275), (200, 45)),text='Set Motor Max Torque',manager=manager)
+    scaleWheel_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((250, 275), (150, 45)),text='Wheel Dimension',manager=manager)
+    graphCapture_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((450, 275), (150, 45)),text='Pause/Resume',manager=manager)
+
 
     '''
     # Joint 3 button
@@ -460,6 +462,10 @@ def main():
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == scaleWheel_button:
                         modify.scaleWheel()
+                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    if event.ui_element == graphCapture_button:
+                        reset.pauseOrResume()
+                        
 
                 '''
                 # Joint 3
