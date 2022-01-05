@@ -109,11 +109,13 @@ Remark: Please make sure that the terminal opened inside your anaconda environme
 
 
 
-[Green]: Motor Max Torque and Wheel Configuration (Max Torque and Wheel diameter)
+[Green]: Motor Max Torque, Wheel Configuration (Max Torque and Wheel diameter), and Simulation Pause or Resume
 
 - Set Motor Max Torque: Input the value (Nm) for configurating the motors' max torque
 
 - Wheel Dimension: Input the wheel dimension (m) for modifying the size of robot's wheels
+
+- Pause/Resume: **Pause** or **Resume** the simulation (All data and graph will be frozed for capture)
 
 [Blue]: Robot information (Mass and Wheel diameter)
 
