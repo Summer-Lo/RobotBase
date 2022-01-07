@@ -26,33 +26,11 @@ def placeLoading():
         if (float(hc.mass) <= 10):
             position[2] = -1
         elif (float(hc.mass) > i * 10 and float(hc.mass) <= i*10+10):
-            position[2] = ((i-1)*0.003)+0.068
+            #position[2] = ((i-1)*0.003)+0.068
+            position[2] = position[2] + 0.008 + ((i-1)*0.003)
         elif (float(hc.mass) > 400):
             return
-    '''
-    if (float(hc.mass) == 10):
-        position[2] = float(-1)
-    elif (float(hc.mass) > 10 and float(hc.mass) <= 20):
-        position[2] = float(0.042)
-    elif (float(hc.mass) > 20 and float(hc.mass) <= 30):
-        position[2] = float(0.047)
-    elif (float(hc.mass) > 30 and float(hc.mass) <= 40):
-        position[2] = float(0.052)
-    elif (float(hc.mass) > 40 and float(hc.mass) <= 50):
-        position[2] = float(0.057)
-    elif (float(hc.mass) > 50 and float(hc.mass) <= 60):
-        position[2] = float(0.062)
-    elif (float(hc.mass) > 60 and float(hc.mass) <= 70):
-        position[2] = float(0.067)
-    elif (float(hc.mass) > 70 and float(hc.mass) <= 80):
-        position[2] = float(0.072)
-    elif (float(hc.mass) > 80 and float(hc.mass) <= 90):
-        position[2] = float(0.077)
-    elif (float(hc.mass) > 90 and float(hc.mass) <= 100):
-        position[2] = float(0.082)
-    else:
-        return
-    '''
+
     _ = vrep.simxSetObjectPosition(clientID, int(loadingHandle), -1, position, vrep.simx_opmode_blocking)
     _ = vrep.simxSetObjectOrientation(clientID, int(loadingHandle), -1, orientation, vrep.simx_opmode_blocking)
 
@@ -67,30 +45,7 @@ def scaleLoading():
             value = (i+1)*0.005
         elif (float(hc.mass) > 400):
             return
-    '''
-    if (float(hc.mass) == 10):
-        value = 0.01
-    elif (float(hc.mass) > 10 and float(hc.mass) <= 20):
-        value = 0.02
-    elif (float(hc.mass) > 20 and float(hc.mass) <= 30):
-        value = 0.03
-    elif (float(hc.mass) > 30 and float(hc.mass) <= 40):
-        value = 0.04
-    elif (float(hc.mass) > 40 and float(hc.mass) <= 50):
-        value = 0.05
-    elif (float(hc.mass) > 50 and float(hc.mass) <= 60):
-        value = 0.06
-    elif (float(hc.mass) > 60 and float(hc.mass) <= 70):
-        value = 0.07
-    elif (float(hc.mass) > 70 and float(hc.mass) <= 80):
-        value = 0.08
-    elif (float(hc.mass) > 80 and float(hc.mass) <= 90):
-        value = 0.09
-    elif (float(hc.mass) > 90 and float(hc.mass) <= 100):
-        value = 0.1
-    else:
-        return
-    '''    
+
     factor = float(value) / float(hc.loadingScale)
     print(f"Value is : {value} Factor is: {factor}")
     res, retInts, retFloats, retStrings, retBuffer = vrep.simxCallScriptFunction(clientID, hc.robotName,\
