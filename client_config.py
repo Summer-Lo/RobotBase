@@ -80,20 +80,20 @@ wheelScale = 0.12
 
 # orginal position and orientation (for IC382)
 # wheel = [leftWheel, rightWheel, leftWheelBehind, rightWheelBehind]
-wheelPosX = [0.33,-0.33,0.33,-0.33]
-wheelPosY = [-0.4,-0.4,0.4,0.4]
-wheelPosZ = [0.06,0.06,0.06,0.06]
+wheelPosX = [-0.33,0.33,-0.33,0.33]
+wheelPosY = [0.4,0.4,-0.4,-0.4]
+wheelPosZ = [0.0595,0.05945,0.06,0.06]
 wheelAlpha = [0,0,0,0]
-wheelBeta = [90,90,90,90]
+wheelBeta = [-90,-90,-90,-90]
 wheelGamma = [-90,-90,-90,-90]
 
 # Joint = [leftMotor, rightMotor, leftJointBehind, rightJointBehind]
-jointPosX = [0.31,-0.31,0.31,-0.31]
-jointPosY = [-0.4,-0.4,0.4,0.4]
-jointPosZ = [0.06,0.06,0.06,0.06]
+jointPosX = [-0.31,0.31,-0.31,0.31]
+jointPosY = [0.4,0.4,-0.4,-0.4]
+jointPosZ = [0.0595,0.05945,0.06,0.06]
 jointAlpha = [0,0,0,0]
-jointBeta = [90,90,90,90]
-jointGamma = [-90,-90,-90,-90]
+jointBeta = [-90,-90,-90,-90]
+jointGamma = [90,90,90,90]
 
 # Robot
 robotPosX = 0
@@ -101,34 +101,7 @@ robotPosY = 0
 robotPosZ = 0.06
 robotAlpha = 0
 robotBeta = 0
-robotGamma = 0
+robotGamma = 180
 
 # Pause or resume status
 pauseOrResume = 0
-
-'''
-# orginal position and orientation (for mini moblie robot)
-# wheel = [leftWheel, rightWheel, leftWheelBehind, rightWheelBehind]
-wheelPosX = [0.065,-0.065,0.065,-0.065]
-wheelPosY = [-0.075,-0.075,0.075,0.075]
-wheelPosZ = [0.05,0.05,0.05,0.05]
-wheelAlpha = [0,0,0,0]
-wheelBeta = [90,90,90,90]
-wheelGamma = [-90,-90,-90,-90]
-
-# Joint = [leftMotor, rightMotor, leftJointBehind, rightJointBehind]
-jointPosX = [0.06,-0.06,0.06,-0.06]
-jointPosY = [-0.075,-0.075,0.075,0.075]
-jointPosZ = [0.05,0.05,0.05,0.05]
-jointAlpha = [0,0,0,0]
-jointBeta = [90,90,90,90]
-jointGamma = [-90,-90,-90,-90]
-
-# Robot
-robotPosX = 0
-robotPosY = 0
-robotPosZ = 0.05
-robotAlpha = 0
-robotBeta = 0
-robotGamma = 0
-'''

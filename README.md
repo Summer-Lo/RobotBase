@@ -130,7 +130,7 @@ Remark: Please make sure that the terminal opened inside your anaconda environme
 
 - Blue for the right motor
 
-![image](https://github.com/Summer-Lo/RobotBase/blob/linux_v4.2.0/robotBase_image/panel_interface.png)
+![image](https://github.com/Summer-Lo/RobotBase/blob/linux_v4.2.0/robotBase_image/interface.png)
 
 ### 1. MotorVelocity (Degrees/Seconds)      --Hided--
 This graph shows the motors' angular velocity with the time changed. 
