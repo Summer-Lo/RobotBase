@@ -29,6 +29,7 @@ try:
     
     vrep.simxFinish(-1) #close the previous connections
     clientID=vrep.simxStart('127.0.0.1',19997,True,True,5000,5) # Connect to CoppeliaSim
+    print(f"Client ID is: {clientID}")
     if clientID!=-1:
         print ('connect successfully')
     else:

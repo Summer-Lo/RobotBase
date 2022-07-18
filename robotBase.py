@@ -229,7 +229,32 @@ def main():
             screen.blit(textInfoClear, textRectInfoClear)
             
             # Mass Information
-            mass = info.readRobotMass()
+            res, mass = info.readRobotMass()
+            '''
+            while res == 1:
+                time.sleep(1)
+                res, mass = info.readRobotMass()
+            '''
+            if(res == 1):
+                time.sleep(1) 
+                print(f"res == 1! Restart simultator")
+                sys.exit("Error! Please try to launch the Task1_python.bat again!") #Terminar este script
+                '''
+                try:
+                    vrep.simxFinish(-1) #close the previous connections
+                    clientID=vrep.simxStart('127.0.0.1',19997,True,True,5000,5) # Connect to CoppeliaSim
+                    print(f"Client ID is: {clientID}")
+                    if clientID!=-1:
+                        print ('connect successfully')
+                    else:
+                        sys.exit("Error: no se puede conectar") #Terminar este script
+                    vrep.simxStartSimulation(clientID, vrep.simx_opmode_blocking)     #Start simulation
+                    print("-----------------Simulation start-----------------")
+                    continue
+                except:
+                    print("Error at starting simultator!")
+                    break
+                '''
             rightTorque = info.getMotorTorque(hc.rightMotorHandle)
             #print(type(leftTorque))
             #print(type(rightTorque))

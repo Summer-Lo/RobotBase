@@ -32,8 +32,16 @@ def getObjectVelocity(handle):
 def readRobotMass():
     global clientID
     res, retInts, retFloats, retStrings, retBuffer = vrep.simxCallScriptFunction(clientID, hc.robotName,\
-        vrep.sim_scripttype_childscript,'readMass',[],[],[],b'',vrep.simx_opmode_blocking)
-    return retFloats[0]
+    vrep.sim_scripttype_childscript,'readMass',[],[],[],b'',vrep.simx_opmode_blocking)
+    print(f"RES is: {res}")
+    print(f"Result in Read Robot Mass is : {retFloats}")
+    if not retFloats:
+        print(f"Not resFloats!")
+        retFloats = [0]
+        res = 1
+        return res,retFloats[0]
+    else:
+        return res,retFloats[0]
 
 
 #testing
