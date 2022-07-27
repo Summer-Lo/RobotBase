@@ -33,8 +33,8 @@ def readRobotMass():
     global clientID
     res, retInts, retFloats, retStrings, retBuffer = vrep.simxCallScriptFunction(clientID, hc.robotName,\
     vrep.sim_scripttype_childscript,'readMass',[],[],[],b'',vrep.simx_opmode_blocking)
-    print(f"RES is: {res}")
-    print(f"Result in Read Robot Mass is : {retFloats}")
+    #print(f"RES is: {res}")
+    #print(f"Result in Read Robot Mass is : {retFloats}")
     if not retFloats:
         print(f"Not resFloats!")
         retFloats = [0]
