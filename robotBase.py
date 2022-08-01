@@ -411,47 +411,46 @@ def main():
                 # Motor Left control
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == motorLeftAdd5_button:
-                        print('Motor Left Velocity increase 0.5 m/s!')
-                        print("Left Motor Current Velocity: ",hc.leftMotorVec)
+                        print('Motor Left Velocity increase 0.5 rad/s!')
                         velocity.motorVelocityPositive(hc.leftMotorHandle,0.5)
+                        print("Left Motor Current Velocity: ",hc.leftMotorVec)
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == motorLeftSub5_button:
-                        print('Motor Left Velocity decrease 0.5 m/s!')
-                        print("Left Motor Current Velocity: ",hc.leftMotorVec)
+                        print('Motor Left Velocity decrease 0.5 rad/s!')
                         velocity.motorVelocityNegative(hc.leftMotorHandle,0.5)
+                        print("Left Motor Current Velocity: ",hc.leftMotorVec)
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == motorLeftAdd_button:
-                        print('Motor Left Velocity increase 0.1 m/s!')
-                        print("Left Motor Current Velocity: ",hc.leftMotorVec)
+                        print('Motor Left Velocity increase 0.1 rad/s!')
                         velocity.motorVelocityPositive(hc.leftMotorHandle,0.1)
-
+                        print("Left Motor Current Velocity: ",hc.leftMotorVec)
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == motorLeftSub_button:
-                        print('Motor Left Velocity decrease 0.1 m/s!')
-                        print("Left Motor Current Velocity: ",hc.leftMotorVec)
+                        print('Motor Left Velocity decrease 0.1 rad/s!')
                         velocity.motorVelocityNegative(hc.leftMotorHandle,0.1)
+                        print("Left Motor Current Velocity: ",hc.leftMotorVec)
                 
                 # Motor Right
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == motorRightAdd5_button:
-                        print('Motor Right Velocity increase 0.5 m/s!')
-                        print("Right Motor Current Velocity: ",hc.rightMotorVec)
+                        print('Motor Right Velocity increase 0.5 rad/s!')
                         velocity.motorVelocityPositive(hc.rightMotorHandle,0.5)
+                        print("Right Motor Current Velocity: ",hc.rightMotorVec)
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == motorRightSub5_button:
-                        print('Motor Right Velocity decrease 0.5 m/s!')
-                        print("Right Motor Current Velocity: ",hc.rightMotorVec)
+                        print('Motor Right Velocity decrease 0.5 rad/s!')
                         velocity.motorVelocityNegative(hc.rightMotorHandle,0.5)
+                        print("Right Motor Current Velocity: ",hc.rightMotorVec)
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == motorRightAdd_button:
-                        print('Motor Right Velocity increase 0.1 m/s!')
-                        print("Right Motor Current Velocity: ",hc.rightMotorVec)
+                        print('Motor Right Velocity increase 0.1 rad/s!')
                         velocity.motorVelocityPositive(hc.rightMotorHandle,0.1)
+                        print("Right Motor Current Velocity: ",hc.rightMotorVec)
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == motorRightSub_button:
-                        print('Motor Right Velocity decrease 0.1 m/s!')
-                        print("Right Motor Current Velocity: ",hc.rightMotorVec)
+                        print('Motor Right Velocity decrease 0.1 rad/s!')
                         velocity.motorVelocityNegative(hc.rightMotorHandle,0.1)
+                        print("Right Motor Current Velocity: ",hc.rightMotorVec)
                 
                 # Pose
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:

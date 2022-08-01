@@ -23,17 +23,17 @@ def updateRobotMass(handle, value):
 
 def setRobotMass():
     global clientID
-    value = float(input("Please input the robot mass: "))
+    value = float(input("Please input the robot mass (kg): "))
     res, retInts, retFloats, retStrings, retBuffer = vrep.simxCallScriptFunction(clientID, hc.robotName,\
         vrep.sim_scripttype_childscript,'setMass',[],[value],[],b'',vrep.simx_opmode_blocking)
-    print(f"Current robot mass is : {retFloats}")
+    print(f"Current robot mass is : {retFloats} kg")
     hc.mass = float(retFloats[0])
     return retFloats[0]
 
 def scaleRobot():
     global clientID
     #value = (0.4-0.1)/(100-10)
-    print(f"Current mass is: {hc.mass}")
+    print(f"Current mass is: {hc.mass} kg")
     if (float(hc.mass) == 10):
         value = 0.01
     elif (float(hc.mass) >= 11 and float(hc.mass) <= 20):
@@ -65,25 +65,25 @@ def scaleRobot():
 
 def scaleWheel():           # only allow 0.01-0.04
     global clientID
-    value = float(input("Please input the diameter of Wheels: "))
+    value = float(input("Please input the diameter of Wheels (m): "))
     factor = float(value) / float(hc.wheelScale)
     #factor = float(float(factor)/10)
     res, retInts, retFloats, retStrings, retBuffer = vrep.simxCallScriptFunction(clientID, hc.robotName,\
         vrep.sim_scripttype_childscript,'scaleWheel',[],[factor],[],b'',vrep.simx_opmode_blocking)
     result = float(hc.wheelScale) * float(factor)
     hc.wheelScale = float(result)
-    print(f"The current diameter of wheels are: {float(hc.wheelScale)}")
+    print(f"The current diameter of wheels are : {float(hc.wheelScale)} m")
     return result
 
 def updateJointMaxTorque():
     global clientID
-    maxTorque = float(input("Please input the max torque of two motors: "))
+    maxTorque = float(input("Please input the max torque of two motors (Nm): "))
     sim.simxSetJointMaxForce(clientID, hc.leftMotorHandle,maxTorque,vrep.simx_opmode_blocking)
     sim.simxSetJointMaxForce(clientID, hc.rightMotorHandle,maxTorque,vrep.simx_opmode_blocking)
     _,leftMotorMaxTorque = sim.simxGetJointMaxForce(clientID, hc.leftMotorHandle,vrep.simx_opmode_blocking)
     _,rightMotorMaxTorque = sim.simxGetJointMaxForce(clientID, hc.rightMotorHandle,vrep.simx_opmode_blocking)
-    print(f"Current left motor max torque is {leftMotorMaxTorque}")
-    print(f"Current right motor max torque is {rightMotorMaxTorque}")
+    print(f"Current left motor max torque is {leftMotorMaxTorque} Nm")
+    print(f"Current right motor max torque is {rightMotorMaxTorque} Nm")
 
 #testing
 if __name__ == '__main__':

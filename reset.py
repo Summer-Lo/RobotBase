@@ -65,7 +65,7 @@ def resetWheelSize():
         vrep.sim_scripttype_childscript,'scaleReset',[],[factor],[],b'',vrep.simx_opmode_blocking)
     result = float(hc.wheelScale) * float(factor)
     hc.wheelScale = float(result)
-    print(f"The current radius of wheels are: {float(hc.wheelScale)}")
+    print(f"The current diameter of wheels are: {float(hc.wheelScale)} m")
     return result
 
 def resetGraph():
@@ -80,8 +80,8 @@ def resetJointMaxTorque(value):
     sim.simxSetJointMaxForce(clientID, hc.rightMotorHandle,maxTorque,vrep.simx_opmode_blocking)
     _,leftMotorMaxTorque = sim.simxGetJointMaxForce(clientID, hc.leftMotorHandle,vrep.simx_opmode_blocking)
     _,rightMotorMaxTorque = sim.simxGetJointMaxForce(clientID, hc.rightMotorHandle,vrep.simx_opmode_blocking)
-    print(f"Current left motor max torque is {leftMotorMaxTorque}")
-    print(f"Current right motor max torque is {rightMotorMaxTorque}")
+    print(f"Current left motor max torque is {leftMotorMaxTorque} Nm")
+    print(f"Current right motor max torque is {rightMotorMaxTorque} Nm")
 
 def pauseOrResume():
     global clientID
