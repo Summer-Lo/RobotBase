@@ -65,14 +65,14 @@ def scaleRobot():
 
 def scaleWheel():           # only allow 0.01-0.04
     global clientID
-    value = float(input("Please input the radius of Wheels: "))
+    value = float(input("Please input the diameter of Wheels: "))
     factor = float(value) / float(hc.wheelScale)
     #factor = float(float(factor)/10)
     res, retInts, retFloats, retStrings, retBuffer = vrep.simxCallScriptFunction(clientID, hc.robotName,\
         vrep.sim_scripttype_childscript,'scaleWheel',[],[factor],[],b'',vrep.simx_opmode_blocking)
     result = float(hc.wheelScale) * float(factor)
     hc.wheelScale = float(result)
-    print(f"The current radius of wheels are: {float(hc.wheelScale)}")
+    print(f"The current diameter of wheels are: {float(hc.wheelScale)}")
     return result
 
 def updateJointMaxTorque():
