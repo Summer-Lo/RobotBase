@@ -97,11 +97,25 @@ def pauseOrResume():
         print("-----The simulation resume now!-----")
         print("Please make sure to save the graph for answering the questions.")
 
+def resetCamera():
+    global clientID
+    cameraPos = [float(hc.cameraHome[0]),float(hc.cameraHome[1]),float(hc.cameraHome[2])]
+    cameraOri = [float(float(hc.cameraHome[3])/RAD2DEG),float(float(hc.cameraHome[4])/RAD2DEG),float(float(hc.cameraHome[5])/RAD2DEG)]
+    returnCode = 1
+    while (returnCode!=0):
+        returnCode = vrep.simxSetObjectPosition(clientID, int(hc.cameraHandle), -1, cameraPos, vrep.simx_opmode_blocking)
+    returnCode = 1
+    while (returnCode!=0):
+        returnCode = vrep.simxSetObjectOrientation(clientID, int(hc.cameraHandle), -1, cameraOri, vrep.simx_opmode_blocking)
+
 def run():
     _ = vrep.simxPauseSimulation(clientID,vrep.simx_opmode_blocking)
     time.sleep(0.3)
     velocity.reset()
     resetRobotMass(int(hc.robotHandle),10)
+    time.sleep(0.1)
+    resetCamera()
+    time.sleep(0.1)
     resetRobot()
     time.sleep(0.1)
     resetJoint()

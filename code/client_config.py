@@ -18,6 +18,9 @@ rightJointBehindName = "RobotBase_rightJointBehind"
 rightWheelFrontName = "RobotBase_rightWheel"
 rightWheelBehindName = "RobotBase_rightWheelBehind"
 
+# camera
+cameraName = "DefaultCamera"
+
 # Object name for behind force sensor
 #leftForceSensorName = "RobotBase_leftJointBehind"
 #rightForceSensorName = "RobotBase_rightJointBehind"
@@ -59,6 +62,8 @@ _, rightWheelBehindHandle = vrep.simxGetObjectHandle(clientID, rightWheelBehindN
 
 wheelHandle = [int(leftWheelFrontHandle),int(rightWheelFrontHandle),int(leftWheelBehindHandle),int(rightWheelBehindHandle)]
 jointHandle = [int(leftMotorHandle),int(rightMotorHandle),int(leftJointBehindHandle),int(rightJointBehindHandle)]
+
+_, cameraHandle = vrep.simxGetObjectHandle(clientID, cameraName, vrep.simx_opmode_blocking)
 
 # Print object handdles
 objectHandle = {"RobotBase_leftMotor":leftMotorHandle,"RobotBase_leftWheel":leftWheelFrontHandle,"RobotBase_leftWheelBehind":leftWheelBehindHandle,"RobotBase_rightMotor":rightMotorHandle,"RobotBase_rightWheel":rightWheelFrontHandle,"RobotBase_rightWheelBehind":rightWheelBehindHandle}
@@ -106,3 +111,6 @@ robotGamma = 180
 
 # Pause or resume status
 pauseOrResume = 0
+
+# camera default position
+cameraHome = [-0.0044875,-7.1338,30.797,-167,0,-180]
