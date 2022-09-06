@@ -114,3 +114,13 @@ pauseOrResume = 0
 
 # camera default position
 cameraHome = [-0.0044875,-7.1338,30.797,-167,0,-180]
+
+# User input
+userInput = ""
+
+# function status = [{Set Velocity},{Mass Configuration},{Set Max Torque},{Set Wheel Size}]
+functionStatus = [0,0,0,0]
+
+# question for asking user input
+question = ""
+inputHeading = ""
