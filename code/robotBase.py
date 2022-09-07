@@ -573,34 +573,36 @@ def main():
                 # formation
                 if event.key == pygame.K_RETURN:
                     # get and print the user inputed message.
-                    if(user_text != "" and user_text.isnumeric() == True):
-                        print("The user input: ", user_text[:])
-                        hc.userInput = user_text[:]
-                        print("The value passed to the function")
-                        for i in range(len(hc.functionStatus)):
-                            if(hc.functionStatus[i] == 1):
-                                if(i == 0):
-                                    velocity.setmotorVelocity()
-                                elif(i == 1):
-                                    modify.setRobotMass()
-                                    loading.scaleLoading()
-                                    loading.placeLoading()
-                                elif(i == 2):
-                                    modify.updateJointMaxTorque()
-                                elif(i == 3):
-                                    modify.scaleWheel()
-                                # Reset the user input after function executed
-                                print("i is: ",i)
-                                hc.functionStatus[i] = 0
-                                print(hc.functionStatus)
-                                user_text = ""
-                                hc.userInput = user_text
-                                active = False
-                                print("Status: ",hc.functionStatus)
-                                #hc.question = "-------------------------------------------------------------------------------------"
-                                hc.question = "                                                                                                          "
-                                hc.inputHeading = "                         "
-                    else:
+                    try:
+                        userInputCheck = float(user_text)
+                        if(user_text != ""):
+                            print("The user input: ", user_text[:])
+                            hc.userInput = user_text[:]
+                            print("The value passed to the function")
+                            for i in range(len(hc.functionStatus)):
+                                if(hc.functionStatus[i] == 1):
+                                    if(i == 0):
+                                        velocity.setmotorVelocity()
+                                    elif(i == 1):
+                                        modify.setRobotMass()
+                                        loading.scaleLoading()
+                                        loading.placeLoading()
+                                    elif(i == 2):
+                                        modify.updateJointMaxTorque()
+                                    elif(i == 3):
+                                        modify.scaleWheel()
+                                    # Reset the user input after function executed
+                                    print("i is: ",i)
+                                    hc.functionStatus[i] = 0
+                                    print(hc.functionStatus)
+                                    user_text = ""
+                                    hc.userInput = user_text
+                                    active = False
+                                    print("Status: ",hc.functionStatus)
+                                    #hc.question = "-------------------------------------------------------------------------------------"
+                                    hc.question = "                                                                                                          "
+                                    hc.inputHeading = "                         "
+                    except:
                         user_text = "Error"
                 else:
                     if(active == True):
@@ -658,7 +660,7 @@ def main():
                 else:
                     print("Invalid input, no corresponding function for this key!")
                 '''
-        print(hc.functionStatus)
+        #print(hc.functionStatus)
         questionTopicInfo = base_font.render("------------------- User Input -------------------", True, blue, white)
         questionTopic = pygame.Rect(115,750,700,32)
         screen.blit(questionTopicInfo, questionTopic)

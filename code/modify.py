@@ -58,7 +58,7 @@ def scaleRobot():
     factor = float(value) / float(hc.robotScale)
     print(f"Value is : {value}Factor is: {factor}")
     res, retInts, retFloats, retStrings, retBuffer = vrep.simxCallScriptFunction(clientID, hc.robotName,\
-        vrep.sim_scripttype_childscript,'scaleRobot',[],[factor],[],b'',vrep.simx_opmode_blocking)
+        vrep.sim_scripttype_childscript,'scaleLoading',[],[factor],[],b'',vrep.simx_opmode_blocking)
     result = float(hc.robotScale) * float(factor)
     hc.robotScale = float(result)
     print(f"The current width of robot is: {float(hc.robotScale)}")
