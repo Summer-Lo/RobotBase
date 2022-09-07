@@ -440,11 +440,13 @@ def main():
                 sys.exit()
             # click button
 
+            '''
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if input_rect.collidepoint(event.pos):
                     active = True
                 else:
                     active = False
+            '''
 
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
@@ -507,40 +509,41 @@ def main():
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == resetVec_button:
                         velocity.reset()
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == setVec_button:
-                        active = True
-                        #velocity.setmotorVelocity()
-                        hc.functionStatus[0] = 1
-                        hc.question = "Please input the angular velocity for both motor (rad/s): "
-                        hc.inputHeading = 'Input: '
-
-                # Modify
-
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == massConfig_button:
-                        active = True
-                        #modify.setRobotMass()
-                        #loading.scaleLoading()
-                        #loading.placeLoading()
-                        hc.functionStatus[1] = 1
-                        hc.question = "Please input the robot mass [10kg - 400kg] (kg): "
-                        hc.inputHeading = 'Input: '
-                
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == setMaxTorque_button:
-                        active = True
-                        #modify.updateJointMaxTorque() 
-                        hc.functionStatus[2] = 1
-                        hc.question = "Please input the max torque of two motors (Nm): "
-                        hc.inputHeading = 'Input: '
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == scaleWheel_button:
-                        active = True
-                        #modify.scaleWheel()
-                        hc.functionStatus[3] = 1
-                        hc.question = "Please input the diameter of Wheels [0.12m - 0.36m] (m): "
-                        hc.inputHeading = 'Input: '
+                if 1 in hc.functionStatus:
+                    pass
+                else:
+                    if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                        if event.ui_element == setVec_button:
+                            active = True
+                            #velocity.setmotorVelocity()
+                            hc.functionStatus[0] = 1
+                            hc.question = "Please input the angular velocity for both motor (rad/s): "
+                            hc.inputHeading = 'Input: '
+                    # Modify
+                    if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                        if event.ui_element == massConfig_button:
+                            active = True
+                            #modify.setRobotMass()
+                            #loading.scaleLoading()
+                            #loading.placeLoading()
+                            hc.functionStatus[1] = 1
+                            hc.question = "Please input the robot mass [10kg - 400kg] (kg): "
+                            hc.inputHeading = 'Input: '
+                    
+                    if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                        if event.ui_element == setMaxTorque_button:
+                            active = True
+                            #modify.updateJointMaxTorque() 
+                            hc.functionStatus[2] = 1
+                            hc.question = "Please input the max torque of two motors (Nm): "
+                            hc.inputHeading = 'Input: '
+                    if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                        if event.ui_element == scaleWheel_button:
+                            active = True
+                            #modify.scaleWheel()
+                            hc.functionStatus[3] = 1
+                            hc.question = "Please input the diameter of Wheels [0.12m - 0.36m] (m): "
+                            hc.inputHeading = 'Input: '
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == graphCapture_button:
                         reset.pauseOrResume()
@@ -570,32 +573,35 @@ def main():
                 # formation
                 if event.key == pygame.K_RETURN:
                     # get and print the user inputed message.
-                    print("The user input: ", user_text[:])
-                    hc.userInput = user_text[:]
-                    print("The value passed to the function")
-                    for i in range(len(hc.functionStatus)):
-                        if(hc.functionStatus[i] == 1):
-                            if(i == 0):
-                                velocity.setmotorVelocity()
-                            elif(i == 1):
-                                modify.setRobotMass()
-                                loading.scaleLoading()
-                                loading.placeLoading()
-                            elif(i == 2):
-                                modify.updateJointMaxTorque()
-                            elif(i == 3):
-                                modify.scaleWheel()
-                            # Reset the user input after function executed
-                            print("i is: ",i)
-                            hc.functionStatus[i] = 0
-                            print(hc.functionStatus)
-                            user_text = ""
-                            hc.userInput = user_text
-                            active = False
-                            print("Status: ",hc.functionStatus)
-                            #hc.question = "-------------------------------------------------------------------------------------"
-                            hc.question = "                                                                                                          "
-                            hc.inputHeading = "                         "
+                    if(user_text != "" and user_text.isnumeric() == True):
+                        print("The user input: ", user_text[:])
+                        hc.userInput = user_text[:]
+                        print("The value passed to the function")
+                        for i in range(len(hc.functionStatus)):
+                            if(hc.functionStatus[i] == 1):
+                                if(i == 0):
+                                    velocity.setmotorVelocity()
+                                elif(i == 1):
+                                    modify.setRobotMass()
+                                    loading.scaleLoading()
+                                    loading.placeLoading()
+                                elif(i == 2):
+                                    modify.updateJointMaxTorque()
+                                elif(i == 3):
+                                    modify.scaleWheel()
+                                # Reset the user input after function executed
+                                print("i is: ",i)
+                                hc.functionStatus[i] = 0
+                                print(hc.functionStatus)
+                                user_text = ""
+                                hc.userInput = user_text
+                                active = False
+                                print("Status: ",hc.functionStatus)
+                                #hc.question = "-------------------------------------------------------------------------------------"
+                                hc.question = "                                                                                                          "
+                                hc.inputHeading = "                         "
+                    else:
+                        user_text = "Error"
                 else:
                     if(active == True):
                         if(event.unicode != "\b" and event.unicode != "\r"):
@@ -652,6 +658,7 @@ def main():
                 else:
                     print("Invalid input, no corresponding function for this key!")
                 '''
+        print(hc.functionStatus)
         questionTopicInfo = base_font.render("------------------- User Input -------------------", True, blue, white)
         questionTopic = pygame.Rect(115,750,700,32)
         screen.blit(questionTopicInfo, questionTopic)
