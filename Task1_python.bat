@@ -1,2 +1,2 @@
-cd code
+cd src
 python robotBase.py
