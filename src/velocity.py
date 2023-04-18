@@ -37,7 +37,8 @@ def motorVelocityNegative(handle, veclocity):
 
 def setmotorVelocity():
     global clientID
-    value = float(input("Please input the angular velocity for both motor (rad/s): "))
+    #value = float(input("Please input the angular velocity for both motor (rad/s): "))
+    value = float(hc.userInput)
     #print("Velocity is: ",value)
     vrep.simxSetJointTargetVelocity(clientID, hc.leftMotorHandle,float(value), vrep.simx_opmode_oneshot)
     hc.leftMotorVec = float(value)                    # update

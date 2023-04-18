@@ -19,7 +19,7 @@ import math
 import time
 import pygame
 import pygame_gui
-import vrep
+import sim
 import client_config as hc
 import velocity
 import info
@@ -27,6 +27,7 @@ import sensor
 import modify
 import reset
 import loading
+import threading
 
 class robotBase:
 
@@ -45,7 +46,7 @@ class robotBase:
     # disconnect
     def __del__(self):
         clientID = self.clientID
-        vrep.simxFinish(clientID)
+        sim.simxFinish(clientID)
         print('Simulation end')
         
     # show Handles information
@@ -80,14 +81,15 @@ class robotBase:
 
     def StopSimulation(self):
         clientID = self.clientID
-        vrep.simxStopSimulation(clientID, vrep.simx_opmode_blocking)    # Stop simulation
-        vrep.simxFinish(clientID)   # Finish
+        sim.simxStopSimulation(clientID, sim.simx_opmode_blocking)    # Stop simulation
+        sim.simxFinish(clientID)   # Finish
 
 # control robot by keyboard
 def main():
+
     # variates
     resolutionX = 640               # Camera resolution: 640*480
-    resolutionY = 780
+    resolutionY = 900
     RAD2DEG = 180 / math.pi         # transform radian to degrees
     robot = robotBase()
 
@@ -103,7 +105,7 @@ def main():
     green = (0, 255, 0)
     blue = (0, 0, 128)
     black = (0, 0, 0)
-    manager = pygame_gui.UIManager((800, 700))
+    manager = pygame_gui.UIManager((800, 800))
     # Introd
     button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((20, 25), (160, 45)),text='Adjusting velocity',manager=manager)
     Add5_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((400, 25), (60, 45)),text='+0.5',manager=manager)
@@ -112,6 +114,17 @@ def main():
     Sub_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((260, 25), (60, 45)),text='-0.1',manager=manager)
     reset_button= pygame_gui.elements.UIButton(relative_rect=pygame.Rect((470, 25), (150, 45)),text='Reset Robot',manager=manager)
 
+    # Motor left control button
+    motorLeftAdd5_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((400, 75), (60, 45)),text='+0.5',manager=manager)
+    motorLeftSub5_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((190, 75), (60, 45)),text='-0.5',manager=manager)
+    motorLeftAdd_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((330, 75), (60, 45)),text='+0.1',manager=manager)
+    motorLeftSub_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((260, 75), (60, 45)),text='-0.1',manager=manager)
+    # Motor right control button
+    motorRightAdd5_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((400, 125), (60, 45)),text='+0.5',manager=manager)
+    motorRightSub5_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((190, 125), (60, 45)),text='-0.5',manager=manager)
+    motorRightAdd_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((330, 125), (60, 45)),text='+0.1',manager=manager)
+    motorRightSub_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((260, 125), (60, 45)),text='-0.1',manager=manager)
+    '''
     # Motor left control button
     motorLeftAdd5_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((400, 75), (60, 45)),text='>> (R)',manager=manager)
     motorLeftSub5_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((190, 75), (60, 45)),text='(Q) <<',manager=manager)
@@ -122,7 +135,21 @@ def main():
     motorRightSub5_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((190, 125), (60, 45)),text='(A) <<',manager=manager)
     motorRightAdd_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((330, 125), (60, 45)),text='> (D)',manager=manager)
     motorRightSub_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((260, 125), (60, 45)),text='(S) <',manager=manager)
+    '''
     
+    
+
+    # Task 2
+    massConfig_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 175), (150, 45)),text='Mass Config',manager=manager)
+    setMaxTorque_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((225, 175), (200, 45)),text='Set Motor Max Torque',manager=manager)
+    setVec_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((450, 175), (150, 45)),text='Set Velocity',manager=manager)
+    
+    graphCapture_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 225), (150, 45)),text='Pause/Resume',manager=manager)
+    scaleWheel_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((250, 225), (150, 45)),text='Wheel Dimension',manager=manager)
+    resetVec_button= pygame_gui.elements.UIButton(relative_rect=pygame.Rect((450, 225), (150, 45)),text='Reset Velocity',manager=manager)
+
+    '''
+    # Version v1.0.0 (Full version)
     # Pose
     changeDirection_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 175), (150, 45)),text='Forward/Backward',manager=manager)
     setVec_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((250, 175), (150, 45)),text='Set Velocity',manager=manager)
@@ -136,7 +163,7 @@ def main():
     setMaxTorque_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((21, 275), (200, 45)),text='Set Motor Max Torque',manager=manager)
     scaleWheel_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((250, 275), (150, 45)),text='Wheel Dimension',manager=manager)
     graphCapture_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((450, 275), (150, 45)),text='Pause/Resume',manager=manager)
-
+    '''
 
     '''
     # Joint 3 button
@@ -167,6 +194,20 @@ def main():
     '''
 
     clock = pygame.time.Clock()
+
+    base_font = pygame.font.Font(None, 32)
+    user_text = ''
+    input_rect = pygame.Rect(315,845,150,32)
+    # color_active stores color(lightskyblue3) which
+    # gets active when input box is clicked by user
+    color_active = pygame.Color('seagreen1')
+    
+    # color_passive store color(chartreuse4) which is
+    # color of input box.
+    color_passive = pygame.Color('white')
+    color = color_passive
+    
+    active = False
     
     while True:
         time_delta = clock.tick(60)/1000.0
@@ -179,7 +220,7 @@ def main():
         jointTitle = ['Left Motor', 'Right Motor']
         infoTitle = ['Left Motor Torque: ','Right Motor Torque: ']
         massWheelTitle = ['Robot Mass: ','Wheel Diameter: ']
-        vecTitle = ["---Linear Velocity---","---Angular Velocity---"]
+        vecTitle = ["-------Linear Velocity-------","------Angular Velocity------"]
         vecInfoTitle = ["X: ","Y: ","Z: "]
         pygame.display.flip()
         
@@ -214,18 +255,18 @@ def main():
             #----------------------------------------Robot mass (start)----------------------------------------
             textInfoTopic = font.render('---------Robot Information---------', True, blue, white)
             textRectInfoTopic = textInfoTopic.get_rect()
-            textRectInfoTopic.center = (310, 350 )
+            textRectInfoTopic.center = (310, 300 )
             screen.blit(textInfoTopic, textRectInfoTopic)
             X = 460
             textInfoTitle = font.render(str(massWheelTitle[i]), True, black, white)
             textRectInfoTitle = textInfoTitle.get_rect()
-            textRectInfoTitle.center = (X-355 +(i*300)  , 400)
+            textRectInfoTitle.center = (X-355 +(i*300)  , 350)
             screen.blit(textInfoTitle, textRectInfoTitle)
             
             # Mass Information Clear
             textInfoClear = font.render('                     ', True, black, white)
             textRectInfoClear = textInfoClear.get_rect()
-            textRectInfoClear.center = (X-220 +(i*310), 400)
+            textRectInfoClear.center = (X-220 +(i*310), 350)
             screen.blit(textInfoClear, textRectInfoClear)
             
             # Mass Information
@@ -241,14 +282,14 @@ def main():
                 sys.exit("Error! Please try to launch the Task1_python.bat again!") #Terminar este script
                 '''
                 try:
-                    vrep.simxFinish(-1) #close the previous connections
-                    clientID=vrep.simxStart('127.0.0.1',19997,True,True,5000,5) # Connect to CoppeliaSim
+                    sim.simxFinish(-1) #close the previous connections
+                    clientID=sim.simxStart('127.0.0.1',19997,True,True,5000,5) # Connect to CoppeliaSim
                     print(f"Client ID is: {clientID}")
                     if clientID!=-1:
                         print ('connect successfully')
                     else:
                         sys.exit("Error: no se puede conectar") #Terminar este script
-                    vrep.simxStartSimulation(clientID, vrep.simx_opmode_blocking)     #Start simulation
+                    sim.simxStartSimulation(clientID, sim.simx_opmode_blocking)     #Start simulation
                     print("-----------------Simulation start-----------------")
                     continue
                 except:
@@ -264,7 +305,7 @@ def main():
             elif(i == 1):
                 textInfo = font.render(str(massWheelinfo[i])+' m', True, black, white)
             textRectInfo = textInfo.get_rect()
-            textRectInfo.center = (X-220 +(i*310) , 400)
+            textRectInfo.center = (X-220 +(i*310) , 350)
             screen.blit(textInfo, textRectInfo)
             #----------------------------------------Robot mass (end)----------------------------------------
 
@@ -278,7 +319,7 @@ def main():
             # Velocity Information Title
             textInfoTopic = font.render(vecTitle[i], True, blue, white)
             textRectInfoTopic = textInfoTopic.get_rect()
-            textRectInfoTopic.center = (310, 450+(i*100) )
+            textRectInfoTopic.center = (310, 400+(i*100) )
             screen.blit(textInfoTopic, textRectInfoTopic)
             X = 480
             
@@ -286,13 +327,13 @@ def main():
             for j in range(3):
                 textInfoTitle = font.render(str(vecInfoTitle[j]), True, black, white)
                 textRectInfoTitle = textInfoTitle.get_rect()
-                textRectInfoTitle.center = (X-440 + (j*190) , 500+(i*100) )
+                textRectInfoTitle.center = (X-440 + (j*190) , 450+(i*100) )
                 screen.blit(textInfoTitle, textRectInfoTitle)
 
                 # Velocity Information Clear
                 textInfoClear = font.render('                       ', True, black, white)
                 textRectInfoClear = textInfoClear.get_rect()
-                textRectInfoClear.center = (X-360+ (j*190) , 500+(i*100) )
+                textRectInfoClear.center = (X-360+ (j*190) , 450+(i*100) )
                 screen.blit(textInfoClear, textRectInfoClear)
                 
                 # Velocity Information
@@ -307,7 +348,7 @@ def main():
                 if(i==1):
                     textInfo = font.render(str(round(angular[j],4))+' rad/s', True, black, white)
                 textRectInfo = textInfo.get_rect()
-                textRectInfo.center = (X-360+ (j*190) , 500+(i*100) )
+                textRectInfo.center = (X-360+ (j*190) , 450+(i*100) )
                 screen.blit(textInfo, textRectInfo)
             #----------------------------------------Robot Velocity (end)----------------------------------------
 
@@ -316,23 +357,23 @@ def main():
             # Torque Information Title
             textInfoTopic = font.render('---------Motor Torque---------', True, blue, white)
             textRectInfoTopic = textInfoTopic.get_rect()
-            textRectInfoTopic.center = (310, 650 )
+            textRectInfoTopic.center = (310, 600 )
             screen.blit(textInfoTopic, textRectInfoTopic)
             X = 480
             textInfoTitle = font.render(str(infoTitle[i]), True, black, white)
             textRectInfoTitle = textInfoTitle.get_rect()
-            textRectInfoTitle.center = (X-355  , 700+(i*50) )
+            textRectInfoTitle.center = (X-355  , 650+(i*50) )
             screen.blit(textInfoTitle, textRectInfoTitle)
             
             # Torque Information Clear
             textInfoClear = font.render('                     ', True, black, white)
             textRectInfoClear = textInfoClear.get_rect()
-            textRectInfoClear.center = (X-150 , 700+(i*50) )
+            textRectInfoClear.center = (X-150 , 650+(i*50) )
             screen.blit(textInfoClear, textRectInfoClear)
 
             textInfoClear = font.render('                                                ', True, black, white)
             textRectInfoClear = textInfoClear.get_rect()
-            textRectInfoClear.center = (X+20 , 700+(i*50) )
+            textRectInfoClear.center = (X+20 , 650+(i*50) )
             screen.blit(textInfoClear, textRectInfoClear)
             
             # Torque Information
@@ -352,12 +393,12 @@ def main():
             
             textInfo = font.render(str(targetinfo[i])+' N m', True, black, white)
             textRectInfo = textInfo.get_rect()
-            textRectInfo.center = (X-150 , 700+(i*50) )
+            textRectInfo.center = (X-150 , 650+(i*50) )
             screen.blit(textInfo, textRectInfo)
 
             maxTInfo = font.render('(Max: '+str(maxTorqueInfo[i])+' Nm'+')', True, blue, white)
             maxTRectInfo = maxTInfo.get_rect()
-            maxTRectInfo.center = (X+20 , 700+(i*50) )
+            maxTRectInfo.center = (X+20 , 650+(i*50) )
             screen.blit(maxTInfo, maxTRectInfo)
 
             #----------------------------------------Motor Torque (end)----------------------------------------
@@ -398,6 +439,15 @@ def main():
                 robot.StopSimulation()
                 sys.exit()
             # click button
+
+            '''
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if input_rect.collidepoint(event.pos):
+                    active = True
+                else:
+                    active = False
+            '''
+
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == reset_button:
@@ -406,6 +456,8 @@ def main():
                         reset.resetJointMaxTorque(1)
                         loading.scaleLoading()
                         loading.placeLoading()
+                        for i in range(len(hc.functionStatus)):
+                            hc.functionStatus[i] = 0
 
 
                 # Motor Left control
@@ -453,127 +505,51 @@ def main():
                         print("Right Motor Current Velocity: ",hc.rightMotorVec)
                 
                 # Pose
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == changeDirection_button:
-                        velocity.changeDirection()
+
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == resetVec_button:
                         velocity.reset()
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == setVec_button:
-                        velocity.setmotorVelocity()
-
-                # Modify
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == massIncrease_button:
-                        modify.updateRobotMass(hc.robotHandle,10)
-                        loading.scaleLoading()
-                        loading.placeLoading()
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == massDecrease_button:
-                        modify.updateRobotMass(hc.robotHandle,-10)
-                        loading.scaleLoading()
-                        loading.placeLoading()
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == massConfig_button:
-                        modify.setRobotMass()
-                        loading.scaleLoading()
-                        loading.placeLoading()
-                
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == setMaxTorque_button:
-                        modify.updateJointMaxTorque() 
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == scaleWheel_button:
-                        modify.scaleWheel()
+                if 1 in hc.functionStatus:
+                    pass
+                else:
+                    if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                        if event.ui_element == setVec_button:
+                            active = True
+                            #velocity.setmotorVelocity()
+                            hc.functionStatus[0] = 1
+                            hc.question = "Please input the angular velocity for both motor (rad/s): "
+                            hc.inputHeading = 'Input: '
+                    # Modify
+                    if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                        if event.ui_element == massConfig_button:
+                            active = True
+                            #modify.setRobotMass()
+                            #loading.scaleLoading()
+                            #loading.placeLoading()
+                            hc.functionStatus[1] = 1
+                            hc.question = "Please input the robot mass [10kg - 400kg] (kg): "
+                            hc.inputHeading = 'Input: '
+                    
+                    if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                        if event.ui_element == setMaxTorque_button:
+                            active = True
+                            #modify.updateJointMaxTorque() 
+                            hc.functionStatus[2] = 1
+                            hc.question = "Please input the max torque of two motors (Nm): "
+                            hc.inputHeading = 'Input: '
+                    if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                        if event.ui_element == scaleWheel_button:
+                            active = True
+                            #modify.scaleWheel()
+                            hc.functionStatus[3] = 1
+                            hc.question = "Please input the diameter of Wheels [0.12m - 0.36m] (m): "
+                            hc.inputHeading = 'Input: '
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == graphCapture_button:
                         reset.pauseOrResume()
                         
 
-                '''
-                # Joint 3
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == joint3Add5_button:
-                        print('Joint 3 Add 5!')
-                        movement.rotateCertainAnglePositive(2,5)
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == joint3Sub5_button:
-                        print('Joint 3 Sub 5!')
-                        movement.rotateCertainAngleNegative(2,5)
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == joint3Add_button:
-                        print('Joint 3 Add!')
-                        movement.rotateCertainAnglePositive(2,1)
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == joint3Sub_button:
-                        print('Joint 3 Sub!')
-                        movement.rotateCertainAngleNegative(2,1)
-                # Joint 4
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == joint4Add5_button:
-                        print('Joint 4 Add 5!')
-                        movement.rotateCertainAnglePositive(3,5)
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == joint4Sub5_button:
-                        print('Joint 4 Sub 5!')
-                        movement.rotateCertainAngleNegative(3,5)
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == joint4Add_button:
-                        print('Joint 4 Add!')
-                        movement.rotateCertainAnglePositive(3,1)
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == joint4Sub_button:
-                        print('Joint 4 Sub!')
-                        movement.rotateCertainAngleNegative(3,1)
-                # Joint 5
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == joint5Add5_button:
-                        print('Joint 5 Add 5!')
-                        movement.rotateCertainAnglePositive(4,5)
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == joint5Sub5_button:
-                        print('Joint 5 Sub 5!')
-                        movement.rotateCertainAngleNegative(4,5)
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == joint5Add_button:
-                        print('Joint 5 Add!')
-                        movement.rotateCertainAnglePositive(4,1)
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == joint5Sub_button:
-                        print('Joint 5 Sub!')
-                        movement.rotateCertainAngleNegative(4,1)
-                # Joint 6
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == joint6Add5_button:
-                        print('Joint 6 Add 5!')
-                        movement.rotateCertainAnglePositive(5,5)
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == joint6Sub5_button:
-                        print('Joint 6 Sub 5!')
-                        movement.rotateCertainAngleNegative(5,5)
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == joint6Add_button:
-                        print('Joint 6 Add!')
-                        movement.rotateCertainAnglePositive(5,1)
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == joint6Sub_button:
-                        print('Joint 6 Sub!')
-                        movement.rotateCertainAngleNegative(5,1)
-                # Pose
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == returnPose_button:
-                        robot.returnPose()
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == openRG2_button:
-                        robot.openRG2()
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == closeRG2_button:
-                        robot.closeRG2()
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == setTarget_button:
-                        robot.setJointAngle()               
-                '''
+
             manager.process_events(event)
             # Key used:
             # q, w, e, r, t, y, u, i, o
@@ -581,6 +557,58 @@ def main():
             # m,
             # up, down, 
             if event.type == pygame.KEYDOWN:
+                # Check for backspace
+                '''
+                if(event.unicode == "\b"):
+                    print("K_BACKSPACE")
+                elif(event.unicode == "\r"):
+                    print("K_RETURN")
+                print(event.unicode)
+                '''
+                if event.key == pygame.K_BACKSPACE:
+                    # get text input from 0 to -1 i.e. end.
+                    user_text = user_text[:-1]
+    
+                # Unicode standard is used for string
+                # formation
+                if event.key == pygame.K_RETURN:
+                    # get and print the user inputed message.
+                    try:
+                        userInputCheck = float(user_text)
+                        if(user_text != ""):
+                            print("The user input: ", user_text[:])
+                            hc.userInput = user_text[:]
+                            print("The value passed to the function")
+                            for i in range(len(hc.functionStatus)):
+                                if(hc.functionStatus[i] == 1):
+                                    if(i == 0):
+                                        velocity.setmotorVelocity()
+                                    elif(i == 1):
+                                        modify.setRobotMass()
+                                        loading.scaleLoading()
+                                        loading.placeLoading()
+                                    elif(i == 2):
+                                        modify.updateJointMaxTorque()
+                                    elif(i == 3):
+                                        modify.scaleWheel()
+                                    # Reset the user input after function executed
+                                    print("i is: ",i)
+                                    hc.functionStatus[i] = 0
+                                    print(hc.functionStatus)
+                                    user_text = ""
+                                    hc.userInput = user_text
+                                    active = False
+                                    print("Status: ",hc.functionStatus)
+                                    #hc.question = "-------------------------------------------------------------------------------------"
+                                    hc.question = "                                                                                                          "
+                                    hc.inputHeading = "                         "
+                    except:
+                        user_text = "Error"
+                else:
+                    if(active == True):
+                        if(event.unicode != "\b" and event.unicode != "\r"):
+                            user_text += event.unicode
+                '''
                 if event.key == pygame.K_p:
                     reset.run()
                     robot.StopSimulation()
@@ -631,7 +659,37 @@ def main():
                     modify.scaleWheel()
                 else:
                     print("Invalid input, no corresponding function for this key!")
+                '''
+        #print(hc.functionStatus)
+        questionTopicInfo = base_font.render("------------------- User Input -------------------", True, blue, white)
+        questionTopic = pygame.Rect(115,750,700,32)
+        screen.blit(questionTopicInfo, questionTopic)
 
+        questionTopicInfo = base_font.render(hc.question, True, black, white)
+        questionTopic = pygame.Rect(25,800,700,32)
+        screen.blit(questionTopicInfo, questionTopic)
+
+        inputTopicInfo = base_font.render(hc.inputHeading, True, blue, white)
+        inputTopic = pygame.Rect(240,850,50,32)
+        screen.blit(inputTopicInfo, inputTopic)
+
+        if active:
+            color = color_active
+        else:
+            color = color_passive
+
+        pygame.draw.rect(screen, color, input_rect)
+  
+        text_surface = base_font.render(user_text, True, (0,0,0))
+        
+        # render at position stated in arguments
+        screen.blit(text_surface, (input_rect.x+5, input_rect.y+5))
+        
+        # set width of textfield so that text cannot get
+        # outside of user's text input
+        input_rect.w = max(100, text_surface.get_width()+10)
+
+        clock.tick(60)
 
         manager.update(time_delta)
 
